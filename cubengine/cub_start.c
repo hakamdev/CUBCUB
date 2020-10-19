@@ -25,7 +25,7 @@ int		check_filename(t_str filename)
 int		init_args( t_cub *cub, int argc, const t_str *args)
 {
 	if (argc < 2)
-		return (exit_error(&cub, "Error: At least 1 arg is required!"));
+		return (exit_error(&cub, "Error: At least 1 argument is required!"));
 	if (argc > 3)
 		return(exit_error(cub, "Error: Too many arguments!"));
 	if (IS_ERROR(check_filename(args[1])))
@@ -43,6 +43,7 @@ int		init_cub(t_cub *cub)
 	cub->errno = NULL;
 	cub->fname = NULL;
 	cub->screenshot = FALSE;
+	cub->read_nb = 0;
 	return (SUCCESS);
 }
 

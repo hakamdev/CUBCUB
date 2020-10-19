@@ -15,11 +15,28 @@
 #define FALSE 0
 #define ERROR -1
 #define SUCCESS 0
+#define MAX_READ_CONFIG 8
 #define IS_ERROR(f) ((f) == ERROR)
 #define IS_SUCESS(f) ((f) == SUCCESS)
 
+#define NORTH 0
+#define SOUTH 1
+#define WEST  2
+#define EAST  3
+#define SPR	  4
+#define HUD   5
+#define	CIEL  0
+#define FLOOR 1
+
 typedef char	*t_str;
 typedef	int		t_bool;
+
+typedef struct s_color
+{
+	int r;
+	int g;
+	int b;
+} t_color;
 
 typedef struct	s_img
 {
@@ -37,12 +54,15 @@ typedef struct	s_img
 typedef struct s_cub
 {
 	t_img		cnvs;
-	t_img		txt[4];
-	t_img		sp;
-	t_img		hud;
+	t_img		txt[6];
+	t_color		color[2];
+	// t_img		sp;
+	// t_img		hud;
 	t_str		fname;
 	t_str		errno;
+	int			read_nb;
 	t_bool		screenshot;
+	int			read_nb;
 }				t_cub;
 
 /* GLOBALS */
