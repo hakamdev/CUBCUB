@@ -9,7 +9,7 @@ char	*ft_strdup(const char *s)
 	i = 0;
 	lens = ft_strlen(s);
 	if (!(ss = (char *)malloc((lens + 1) * sizeof(char))))
-		EXIT(NULL);
+		return (NULL);
 	while (i < lens)
 	{
 		ss[i] = s[i];

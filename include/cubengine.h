@@ -59,8 +59,6 @@ typedef struct s_cub
 	t_img		cnvs;
 	t_img		txt[6];
 	t_color		color[2];
-	// t_img		sp;
-	// t_img		hud;
 	t_str		fname;
 	t_str		errno;
 	int			read_nb;
@@ -80,6 +78,7 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strsub(char **s, unsigned int start, size_t n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_output(t_str msg, int retcode);
+void	ft_free(char **s);
 int		get_next_line(int fd, char **line);
 
 int		exit_error( t_cub *cub, t_str error_msg);

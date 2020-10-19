@@ -47,7 +47,7 @@ int		read_xpm(t_cub *cub, t_str line, int txt_index)
 
 	if (ft_strlen_2d((split = ft_split(line, ' '))) < 2)
 		return (exit_error(cub, "Error: The XPM path is not provided!"));
-	if (ft_strlen_2d(split > 2))
+	if (ft_strlen_2d(split) > 2)
 		return (exit_error(cub, "Error: Only one XPM path per line is required!"));
 	cub->txt[txt_index].path = ft_strdup(split[1]);
 	free(line);

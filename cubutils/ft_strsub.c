@@ -16,6 +16,6 @@ char	*ft_strsub(char **s, unsigned int start, size_t n)
 		return (NULL);
 	while (i < n && start < len)
 		*(ss + i++) = *(*s + start++);
-	*(ss + i) = "\0";
+	*(ss + i) = '\0';
 	return (ss);
 }
