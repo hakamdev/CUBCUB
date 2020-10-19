@@ -12,10 +12,32 @@ int		free_2d(t_str *str)
 	return (SUCCESS);
 }
 
+int		ft_strlen_2d(t_str *str)
+{
+	int 	i;
+
+	i = 0;
+	while (str && str[i] != NULL)
+		i++;
+	return (i);
+}
+
 int		read_resolution(t_cub *cub, t_str line)
 {
 	t_str	*split;
 
+	if (ft_strlen_2d((split = ft_split(line, ' '))) < 3)
+		return (exit_error(cub, "Error: Either Width or Height are not provided!"));
+	if (ft_strlen_2d(split) > 3)
+		return (exit_error(cub, "Error: Only Width and Height are required!"));
+	cub->cnvs.width = ft_atoi(split[1]);
+	cub->cnvs.height = ft_atoi(split[2]);
+	if (cub->cnvs.width == 0 || cub->cnvs.height == 0)
+		return (exit_error(cub, "Error: Only Digital, Non-zero values are accepted!"));
+	cub->cnvs.width = cub->cnvs.width > 2560 ? 2560 : cub->cnvs.width;
+	cub->cnvs.height = cub->cnvs.height > 1395 ? 1395 : cub->cnvs.height;
+	free(line);
+	return (free_2d(split));
 }
 
 int		handle_line(t_cub *cub, t_str line)
