@@ -30,10 +30,12 @@ int		init_args( t_cub *cub, int argc, const t_str *args)
 		return(exit_error(cub, "Error: Too many arguments!"));
 	if (IS_ERROR(check_filename(args[1])))
 		return(exit_error(cub, "Error: File is not supported, provide .cub file!"));
+	cub->fname = args[1];
 	if (argc == 3 && IS_SUCESS(ft_strncmp(args[2], "--save", 6)))
 		cub->screenshot = TRUE;
 	else
 		return(exit_error(cub, "Error: 2nd arg is not recognized! provide --save instead for screenshot!"));
+	return (SUCCESS);
 }
 
 int		init_cub(t_cub *cub)
@@ -48,6 +50,9 @@ int		main(int argc, char **argv)
 {
 	t_cub	cub;
 
+	init_cub(&cub);
 	if (IS_ERROR(init_args(&cub, argc, argv)))
 		return (ft_output(cub.errno, ERROR));
+	
+	
 }

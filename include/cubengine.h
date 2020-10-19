@@ -60,4 +60,6 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_output(t_str msg, int retcode);
 int		get_next_line(int fd, char **line);
 
+int		exit_error( t_cub *cub, t_str error_msg);
+
 #endif
