@@ -36,8 +36,18 @@ int		init_args( t_cub *cub, int argc, const t_str *args)
 		return(exit_error(cub, "Error: 2nd arg is not recognized! provide --save instead for screenshot!"));
 }
 
+int		init_cub(t_cub *cub)
+{
+	cub->errno = NULL;
+	cub->fname = NULL;
+	cub->screenshot = FALSE;
+	return (SUCCESS);
+}
+
 int		main(int argc, char **argv)
 {
 	t_cub	cub;
-	init_args(&cub, argc, argv);
+
+	if (IS_ERROR(init_args(&cub, argc, argv)))
+		return (ft_output(cub.errno, ERROR));
 }

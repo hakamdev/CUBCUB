@@ -57,6 +57,7 @@ size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strsub(char **s, unsigned int start, size_t n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_output(t_str msg, int retcode);
 int		get_next_line(int fd, char **line);
 
 #endif
