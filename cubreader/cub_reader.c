@@ -27,7 +27,7 @@ int		read_resolution(t_cub *cub, t_str line)
 	t_str	*split;
 
 	if (ft_strlen_2d((split = ft_split(line, ' '))) < 3)
-		return (exit_error(cub, "Error: Either Width or Height are not provided!"));
+		return (exit_error(cub, "Error: Width or Height are not provided!"));
 	if (ft_strlen_2d(split) > 3)
 		return (exit_error(cub, "Error: Only Width and Height are required!"));
 	cub->cnvs.width = ft_atoi(split[1]);
@@ -37,6 +37,21 @@ int		read_resolution(t_cub *cub, t_str line)
 	cub->cnvs.width = cub->cnvs.width > 2560 ? 2560 : cub->cnvs.width;
 	cub->cnvs.height = cub->cnvs.height > 1395 ? 1395 : cub->cnvs.height;
 	free(line);
+	cub->read_nb++;
+	return (free_2d(split));
+}
+
+int		read_xpm(t_cub *cub, t_str line, int txt_index)
+{
+	t_str	*split;
+
+	if (ft_strlen_2d((split = ft_split(line, ' '))) < 2)
+		return (exit_error(cub, "Error: The XPM path is not provided!"));
+	if (ft_strlen_2d(split > 2))
+		return (exit_error(cub, "Error: Only one XPM path per line is required!"));
+	cub->txt[txt_index].path = ft_strdup(split[1]);
+	free(line);
+	cub->read_nb++;
 	return (free_2d(split));
 }
 
