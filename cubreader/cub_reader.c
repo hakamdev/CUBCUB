@@ -55,6 +55,26 @@ int		read_xpm(t_cub *cub, t_str line, int txt_index)
 	return (free_2d(split));
 }
 
+int		read_color(t_cub *cub, t_str line, int clr_index)
+{
+	t_str	*split;
+	int		skip;
+
+	skip = 0;
+	while (!(line[skip] >= '0' && line[skip] <= '9'))
+		skip++;
+	if(ft_strlen_2d((split = ft_split(&line[skip], ','))) < 3)
+		return (exit_error(cub, "Error: Missing color values, 3 (R,G,B) are required! or Bad Delim!"));
+	if (ft_strlen_2d(split) > 3)
+		return (exit_error(cub, "Error: Only 3 (R,G,B) values are required!"));
+	cub->color[clr_index].r = ft_atoi(split[0]);
+	cub->color[clr_index].g = ft_atoi(split[1]);
+	cub->color[clr_index].b = ft_atoi(split[2]);
+	free(line);
+	cub->read_nb++;
+	return (free_2d(split));
+}
+
 int		handle_line(t_cub *cub, t_str line)
 {
 	if (IS_SUCESS(ft_strncmp(line, "R ", 2)))
