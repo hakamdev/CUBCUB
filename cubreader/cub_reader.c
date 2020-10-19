@@ -75,6 +75,12 @@ int		read_color(t_cub *cub, t_str line, int clr_index)
 	return (free_2d(split));
 }
 
+int		read_map(t_cub *cub, t_str line)
+{
+	free(line);
+	return (SUCCESS);
+}
+
 int		handle_line(t_cub *cub, t_str line)
 {
 	if (IS_SUCESS(ft_strncmp(line, "R ", 2)))
@@ -98,7 +104,7 @@ int		handle_line(t_cub *cub, t_str line)
 	return (SUCCESS);
 }
 
-int		init_read(t_cub *cub)
+int		ft_init_read(t_cub *cub)
 {
 	int		map_fd;
 	int		retcode;

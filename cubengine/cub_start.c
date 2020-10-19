@@ -25,7 +25,7 @@ int		check_filename(t_str filename)
 int		init_args( t_cub *cub, int argc, const t_str *args)
 {
 	if (argc < 2)
-		return (exit_error(&cub, "Error: At least 1 argument is required!"));
+		return (exit_error(cub, "Error: At least 1 argument is required!"));
 	if (argc > 3)
 		return(exit_error(cub, "Error: Too many arguments!"));
 	if (IS_ERROR(check_filename(args[1])))
@@ -54,6 +54,17 @@ int		main(int argc, char **argv)
 	init_cub(&cub);
 	if (IS_ERROR(init_args(&cub, argc, argv)))
 		return (ft_output(cub.errno, ERROR));
+	if (IS_ERROR(ft_init_read(&cub)))
+		return (ft_output(cub.errno, ERROR));
 	
-	
+	/* TEST */
+	printf("R [%i, %i]\n", cub.cnvs.width, cub.cnvs.height);
+	printf("C [%i, %i, %i]\n", cub.color[CIEL].r, cub.color[CIEL].g, cub.color[CIEL].b);
+	printf("F [%i, %i, %i]\n", cub.color[FLOOR].r, cub.color[FLOOR].g, cub.color[FLOOR].b);
+	printf("NO [%s]\n", cub.txt[NORTH].path);
+	printf("SO [%s]\n", cub.txt[SOUTH].path);
+	printf("WE [%s]\n", cub.txt[WEST].path);
+	printf("EA [%s]\n", cub.txt[EAST].path);
+	 printf("S [%s]\n", cub.txt[SPR].path);
+	/* END TEST */
 }

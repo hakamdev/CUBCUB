@@ -6,6 +6,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+// Test
+#include <stdio.h>
+
 #define RAD(a) ((float)(a * M_PI / 180))
 #define DEG(a) ((float)(a * 180) / M_PI)
 #define TILE_SIZE 64
@@ -62,7 +65,6 @@ typedef struct s_cub
 	t_str		errno;
 	int			read_nb;
 	t_bool		screenshot;
-	int			read_nb;
 }				t_cub;
 
 /* GLOBALS */
@@ -81,5 +83,6 @@ int		ft_output(t_str msg, int retcode);
 int		get_next_line(int fd, char **line);
 
 int		exit_error( t_cub *cub, t_str error_msg);
+int		ft_init_read(t_cub *cub);
 
 #endif
