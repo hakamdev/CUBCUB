@@ -56,9 +56,17 @@ typedef struct	s_img
 	int end;
 }				t_img;
 
+typedef struct	s_map
+{
+	t_str	row;
+	int		columns;
+}				t_map;
+
 /* PUT ALL GAME DATA HERE TO AVOID USING THE STUPID G_ PREFIX */
 typedef struct s_cub
 {
+	t_map		*map;
+	int			rows;
 	t_img		cnvs;
 	t_img		txt[6];
 	t_color		color[2];

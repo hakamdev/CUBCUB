@@ -93,6 +93,7 @@ int		read_map(t_cub *cub, t_str line)
 {
 	if (cub->read_nb != MAX_READ_CONFIG)
 		return (exit_error(cub, "Error: Missing configurations or missplaced map rows!"));
+	
 	free(line);
 	return (SUCCESS);
 }
