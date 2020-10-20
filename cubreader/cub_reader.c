@@ -57,10 +57,20 @@ int		read_xpm(t_cub *cub, t_str line, int txt_index)
 	return (free_2d(split));
 }
 
+int		check_color(t_color color)
+{
+	if ((color.r < 0 || color.r > 255)
+		|| (color.g < 0 || color.g > 255)
+		|| (color.b < 0 || color.b > 255))
+		return (ERROR);
+	return (SUCCESS);
+}
+
 int		read_color(t_cub *cub, t_str line, int clr_index)
 {
 	t_str	*split;
 	int		skip;
+	int		clr[3];
 
 	skip = 0;
 	while (!(line[skip] >= '0' && line[skip] <= '9') && line[skip] != '-')
@@ -72,6 +82,8 @@ int		read_color(t_cub *cub, t_str line, int clr_index)
 	cub->color[clr_index].r = ft_atoi(split[0]);
 	cub->color[clr_index].g = ft_atoi(split[1]);
 	cub->color[clr_index].b = ft_atoi(split[2]);
+	if (IS_ERROR(check_color(cub->color[clr_index])))
+		return (exit_error(cub, "Error: Color values should be between 0 - 255!"));
 	free(line);
 	cub->read_nb++;
 	return (free_2d(split));
