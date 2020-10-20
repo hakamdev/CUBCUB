@@ -61,7 +61,7 @@ int		read_color(t_cub *cub, t_str line, int clr_index)
 	int		skip;
 
 	skip = 0;
-	while (!(line[skip] >= '0' && line[skip] <= '9'))
+	while (!(line[skip] >= '0' && line[skip] <= '9') && line[skip] != '-')
 		skip++;
 	if(ft_strlen_2d((split = ft_split(&line[skip], ','))) < 3)
 		return (exit_error(cub, "Error: Missing color values, 3 (R,G,B) are required! or Bad Delim!"));
@@ -77,6 +77,8 @@ int		read_color(t_cub *cub, t_str line, int clr_index)
 
 int		read_map(t_cub *cub, t_str line)
 {
+	if (cub->read_nb != MAX_READ_CONFIG)
+		return (exit_error(cub, "Error: Missing configurations or missplaced map rows!"));
 	free(line);
 	return (SUCCESS);
 }

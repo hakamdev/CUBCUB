@@ -1,11 +1,11 @@
-R 5000
+R 5000 444
 
 NO ./xpm/wood.xpm
 SO ./xpm/redbrick.xpm
 WE ./xpm/stone.xpm
 EA ./xpm/mossy.xpm
 S ./xpm/sp2.xpm
-F 86,35,73
+F 86,35,3
 C 10,151,176
 
 111
