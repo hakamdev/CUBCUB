@@ -49,6 +49,8 @@ int		read_xpm(t_cub *cub, t_str line, int txt_index)
 		return (exit_error(cub, "Error: The XPM path is not provided!"));
 	if (ft_strlen_2d(split) > 2)
 		return (exit_error(cub, "Error: Only one XPM path per line is required!"));
+	if (IS_ERROR(check_filename(split[1], EXT_XPM)))
+		return (exit_error(cub, "Error: File is not supported, provide a .xpm file!"));
 	cub->txt[txt_index].path = ft_strdup(split[1]);
 	free(line);
 	cub->read_nb++;

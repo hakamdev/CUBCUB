@@ -31,6 +31,9 @@
 #define	CIEL  0
 #define FLOOR 1
 
+#define EXT_CUB 0
+#define EXT_XPM 1
+
 typedef char	*t_str;
 typedef	int		t_bool;
 
@@ -83,5 +86,6 @@ int		get_next_line(int fd, char **line);
 
 int		exit_error( t_cub *cub, t_str error_msg);
 int		ft_init_read(t_cub *cub);
+int		check_filename(t_str filename, int ext);
 
 #endif
