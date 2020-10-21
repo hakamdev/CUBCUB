@@ -1,6 +1,13 @@
 #include "../include/cubengine.h"
 #include "../include/get_next_line.h"
 
+char	value_at(t_cub *cub, int x, int y)
+{
+	if ((y >= 0 && y < cub->rows) && (x >= 0 && x < cub->map[y].columns))
+		return (cub->map[y].row[x]);
+	return (' ');
+}
+
 int		free_2d(t_str *str)
 {
 	int		i;
@@ -70,7 +77,6 @@ int		read_color(t_cub *cub, t_str line, int clr_index)
 {
 	t_str	*split;
 	int		skip;
-	int		clr[3];
 
 	skip = 0;
 	while (!(line[skip] >= '0' && line[skip] <= '9') && line[skip] != '-')
@@ -87,6 +93,30 @@ int		read_color(t_cub *cub, t_str line, int clr_index)
 	free(line);
 	cub->read_nb++;
 	return (free_2d(split));
+}
+
+int		check_map_element(int i, int j)
+{
+
+}
+
+int		check_map(t_cub *cub)
+{
+	int		i;
+	int		j;
+
+	j = -1;
+	while (++j < cub->rows)
+	{
+		i = -1;
+		while (++i < cub->map[j].columns)
+		{
+			if (!(ft_value_at(i, j) == '1' || ft_value_at(i, j) == ' ') 
+				&& IS_ERROR(check_at(i, j)))
+				return (exit_error(cub, "Error: Map is not properly closed!"));
+		}
+	}
+	return (SUCCESS);
 }
 
 int		read_map(t_cub *cub, t_str line)
