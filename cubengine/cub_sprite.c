@@ -1,6 +1,11 @@
 #include "../include/cubengine.h"
 
-void sort_sprite(t_cub *cub)
+void	update_sprite()
+{
+	
+}
+
+void	sort_sprite(t_cub *cub)
 {
     int i;
 	int	j;
@@ -23,7 +28,31 @@ void sort_sprite(t_cub *cub)
     }
 }
 
-void init_sprites(t_cub *cub)
+int		add_sprite(t_cub *cub, int i, int j)
+{
+	int			index;
+	t_sprite	tmp_spr;
+	t_sprite	*tmp_sprs;
+
+	tmp_spr.x = (i + 0.5f) * TILE_SIZE;
+	tmp_spr.y = (j + 0.5f) * TILE_SIZE;
+	if (cub->spr == NULL && !(cub->spr = (t_sprite *)malloc(sizeof(t_sprite) * 1)))
+		return (ERROR);
+    else
+    {
+		index = -1;
+        tmp_sprs = cub->spr;
+        if (!(cub->spr = (t_sprite *)malloc(sizeof(t_sprite) * ++(cub->sprs_nb))))
+			return (ERROR);
+        while (++index < cub->sprs_nb - 1)
+            cub->spr[index] = tmp_sprs[index];
+        free(tmp_sprs);
+    }
+    cub->spr[index] = tmp_spr;
+	return (SUCCESS);
+}
+
+int		init_sprites(t_cub *cub)
 {
 	int		i;
 	int		j;
@@ -34,16 +63,9 @@ void init_sprites(t_cub *cub)
 		i = -1;
 		while (++i < cub->map[j].columns)
 			if (ft_strnchar("234", value_at(cub, i, j)))
-				add_sprite(cub);
+				if (IS_ERROR(add_sprite(cub, i, j)))
+					return (cub, "Error: Failed to allocate memory!");
 	}
+	return (SUCCESS);
 }
 
-void add_sprite(t_cub *cub, int i, int j)
-{
-	int			index;
-	t_sprite	tmp_spr;
-	t_sprite	*tmp_sprs;
-
-	tmp_spr.x = (i + 0.5) * TILE_SIZE;
-	tmp_spr.y = (j + 0.5) * TILE_SIZE;
-}

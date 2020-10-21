@@ -8,19 +8,20 @@
 
 // Test
 #include <stdio.h>
+//
 
-#define RAD(a) ((float)((a) * M_PI / 180))
-#define DEG(a) ((float)((a) * 180) / M_PI)
-#define TILE_SIZE 100
-#define FOV 60
-#define CUBTITLE "Cub3D by HAKAM"
-#define TRUE 1
-#define FALSE 0
-#define ERROR -1
-#define SUCCESS 0
-#define MAX_READ_CONFIG 8
-#define IS_ERROR(f) ((f) == ERROR)
-#define IS_SUCESS(f) ((f) == SUCCESS)
+#define RAD(a)			((float)((a) * M_PI / 180))
+#define DEG(a)			((float)((a) * 180) / M_PI)
+#define IS_ERROR(f)		((f) == ERROR)
+#define IS_SUCESS(f)	((f) == SUCCESS)
+#define TILE_SIZE		100
+#define FOV				60
+#define CUBTITLE		"Cub3D by HAKAM"
+#define TRUE			1
+#define FALSE			0
+#define ERROR			-1
+#define SUCCESS			0
+#define MAX_READ_CONFIG	8
 
 #define NORTH 0
 #define SOUTH 1
@@ -34,8 +35,8 @@
 #define EXT_CUB 0
 #define EXT_XPM 1
 
-#define EV_KEY_PRESSED 2
-#define EV_KEY_RELEASED 3
+#define EV_KEY_PRESSED	2
+#define EV_KEY_RELEASED	3
 
 typedef char	*t_str;
 typedef	int		t_bool;
@@ -110,8 +111,6 @@ typedef struct s_cub
 	t_color		color[2];
 	t_bool		screenshot;
 }				t_cub;
-
-/* GLOBALS */
 
 /* FUNCTIONS */
 int		ft_atoi(const char *str);
