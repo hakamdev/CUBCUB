@@ -64,15 +64,6 @@ int		read_xpm(t_cub *cub, t_str line, int txt_index)
 	return (free_2d(split));
 }
 
-int		check_color(t_color color)
-{
-	if ((color.r < 0 || color.r > 255)
-		|| (color.g < 0 || color.g > 255)
-		|| (color.b < 0 || color.b > 255))
-		return (ERROR);
-	return (SUCCESS);
-}
-
 int		read_color(t_cub *cub, t_str line, int clr_index)
 {
 	t_str	*split;
@@ -93,48 +84,6 @@ int		read_color(t_cub *cub, t_str line, int clr_index)
 	free(line);
 	cub->read_nb++;
 	return (free_2d(split));
-}
-
-int		check_camera(t_cub cub)
-{
-	
-}
-
-int		check_map_element(t_cub *cub, int i, int j)
-{
-	int		m;
-	int		n;
-
-	n = -2;
-	while (++n <= 1)
-	{
-		m = -2;
-		while (++m <= 1)
-		{
-			if (value_at(cub, i + m, j + n) == ' ')
-				return (ERROR);
-		}
-	}
-	return (SUCCESS);
-}
-
-int		check_map(t_cub *cub)
-{
-	int		i;
-	int		j;
-
-	j = -1;
-	while (++j < cub->rows)
-	{
-		i = -1;
-		while (++i < cub->map[j].columns)
-		{
-			if (!(value_at(cub, i, j) == '1' || value_at(cub, i, j) == ' ') 
-				&& IS_ERROR(check_map_element(cub, i, j)))
-				return (ERROR);
-		}
-	}
-	return (SUCCESS);
 }
 
 int		read_map(t_cub *cub, t_str line)
@@ -162,6 +111,106 @@ int		read_map(t_cub *cub, t_str line)
 	cub->map[i].row = line;
 	cub->map[i].columns = ft_strlen(line);
 	free(tmap);
+	return (SUCCESS);
+}
+
+int		set_camera_rotation(t_cub *cub, char direction)
+{
+	if (direction == 'N')
+		cub->cam.ang = RAD(270);
+	else if (direction == 'W')
+		cub->cam.ang = RAD(180);
+	else if (direction == 'S')
+		cub->cam.ang = RAD(90);
+	else if (direction == 'E')
+		cub->cam.ang = RAD(0);
+	return (SUCCESS);
+}
+
+t_bool	is_camera(t_cub *cub, int i, int j)
+{
+	if (value_at(cub, i, j) == 'N' || value_at(cub, i, j) == 'W' ||
+		value_at(cub, i, j) == 'S' || value_at(cub, i, j) == 'E')
+		return (TRUE);
+	return (FALSE);
+}
+
+int		init_camera(t_cub *cub)
+{
+	t_bool		cam_exists;
+
+	cam_exists = FALSE;
+	while (++cub->cam.y < cub->rows)
+	{
+		cub->cam.x = -1;
+		while (++cub->cam.x < cub->map[cub->cam.y].columns)
+		{
+			if (is_camera(cub, cub->cam.x, cub->cam.y))
+			{
+				if (cam_exists)
+					return (ERROR);
+				cam_exists = TRUE;
+				set_camera_rotation(cub, value_at(cub, cub->cam.x, cub->cam.y));
+				cub->cam.x = (cub->cam.x + 0.5F) * TILE_SIZE;
+				cub->cam.y = (cub->cam.y + 0.5F) * TILE_SIZE;
+			}
+		}
+		
+	}
+	return (!cam_exists ? ERROR : SUCCESS);
+}
+
+int		check_color(t_color color)
+{
+	if ((color.r < 0 || color.r > 255)
+		|| (color.g < 0 || color.g > 255)
+		|| (color.b < 0 || color.b > 255))
+		return (ERROR);
+	return (SUCCESS);
+}
+
+int		check_camera(t_cub cub)
+{
+	return 0;
+}
+
+int		check_map_element(t_cub *cub, int i, int j)
+{
+	int		m;
+	int		n;
+
+	n = -2;
+	while (++n <= 1)
+	{
+		m = -2;
+		while (++m <= 1)
+		{
+			if (value_at(cub, i + m, j + n) == ' ') {
+				printf("\n");
+				printf("i:%i, j:%i == %c\n", i, j, value_at(cub, i, j));
+				return (ERROR);
+			}
+		}
+	}
+	return (SUCCESS);
+}
+
+int		check_map(t_cub *cub)
+{
+	int		i;
+	int		j;
+
+	j = -1;
+	while (++j < cub->rows)
+	{
+		i = -1;
+		while (++i < cub->map[j].columns)
+		{
+			if (!(value_at(cub, i, j) == '1' || value_at(cub, i, j) == ' ') 
+				&& IS_ERROR(check_map_element(cub, i, j)))
+				return (ERROR);
+		}
+	}
 	return (SUCCESS);
 }
 
@@ -203,9 +252,9 @@ int		ft_init_read(t_cub *cub)
 		return(exit_error(cub, "Error: Cannot read from file!"));
 	if (IS_ERROR(handle_line(cub, line)))
 		return (ERROR);
-	if (IS_ERROR(check_map(cub)))
-		return (exit_error(cub, "Error: Map is not properly closed!"));
 	if (IS_ERROR(close(map_fd)))
 		return (exit_error(cub, "Error: Failed to close file after read!"));
+	if (IS_ERROR(check_map(cub)))
+		return (exit_error(cub, "Error: Map is not properly closed!"));
 	return (SUCCESS);
 }

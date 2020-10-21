@@ -23,6 +23,7 @@ int		check_filename(t_str filename, int ext)
 	return (ERROR);
 }
 
+//
 int		init_args( t_cub *cub, int argc, const t_str *args)
 {
 	if (argc < 2)
@@ -44,13 +45,17 @@ int		init_cub(t_cub *cub)
 	int		i;
 
 	i =						-1;
-	cub->errno =			NULL;
-	cub->fname =			NULL;
-	cub->screenshot = 		FALSE;
+	cub->cam.x =			-1;
+	cub->cam.y =			-1;
 	cub->read_nb = 			0;
 	cub->cnvs.width = 		0;
 	cub->cnvs.height = 		0;
+	cub->errno =			NULL;
+	cub->fname =			NULL;
+	cub->screenshot = 		FALSE;
 	cub->map = 				NULL;
+	cub->cam.mov_dir =		FALSE;
+	cub->cam.rot_dir =		FALSE;
 	while (++i < 6)
 		cub->txt[i].path =	NULL;
 	return (SUCCESS);

@@ -9,8 +9,8 @@
 // Test
 #include <stdio.h>
 
-#define RAD(a) ((float)(a * M_PI / 180))
-#define DEG(a) ((float)(a * 180) / M_PI)
+#define RAD(a) ((float)((a) * M_PI / 180))
+#define DEG(a) ((float)((a) * 180) / M_PI)
 #define TILE_SIZE 64
 #define FOV 60
 #define CUBTITLE "Cub3D by HAKAM"
@@ -46,11 +46,13 @@ typedef struct s_color
 
 typedef struct	s_camera
 {
-	float		x;
-	float		y;
+	int			x;
+	int			y;
 	float		ang;
 	float		mov_spd;
 	float		rot_spd;
+	t_bool		mov_dir;
+	t_bool		rot_dir;
 }				t_camera;
 
 typedef struct	s_ray
@@ -79,14 +81,15 @@ typedef struct	s_map
 /* PUT ALL GAME DATA HERE TO AVOID USING THE STUPID G_ PREFIX */
 typedef struct s_cub
 {
-	t_map		*map;
 	int			rows;
+	int			read_nb;
+	t_str		fname;
+	t_str		errno;
+	t_map		*map;
+	t_camera	cam;
 	t_img		cnvs;
 	t_img		txt[6];
 	t_color		color[2];
-	t_str		fname;
-	t_str		errno;
-	int			read_nb;
 	t_bool		screenshot;
 }				t_cub;
 
