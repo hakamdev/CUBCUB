@@ -97,7 +97,20 @@ int		read_color(t_cub *cub, t_str line, int clr_index)
 
 int		check_map_element(int i, int j)
 {
+	int		m;
+	int		n;
 
+	n = -2;
+	while (++n <= 1)
+	{
+		m = -2;
+		while (++m <= 1)
+		{
+			if (ft_value_at(i + m, j + n) == ' ')
+				return (ERROR);
+		}
+	}
+	return (SUCCESS);
 }
 
 int		check_map(t_cub *cub)
