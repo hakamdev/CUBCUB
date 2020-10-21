@@ -79,6 +79,8 @@ int		main(int argc, char **argv)
 	printf("SO [%s]\n", cub.txt[SOUTH].path);
 	printf("WE [%s]\n", cub.txt[WEST].path);
 	printf("EA [%s]\n", cub.txt[EAST].path);
-	 printf("S [%s]\n", cub.txt[SPR].path);
+	printf("S [%s]\n", cub.txt[SPR].path);
+
+	printf("cam: x[%i], y[%i], ang[%f]\n", cub.cam.x, cub.cam.y, DEG(cub.cam.ang));
 	/* END TEST */
 }

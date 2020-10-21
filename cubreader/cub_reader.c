@@ -29,6 +29,55 @@ int		ft_strlen_2d(t_str *str)
 	return (i);
 }
 
+int		check_color(t_color color)
+{
+	if ((color.r < 0 || color.r > 255)
+		|| (color.g < 0 || color.g > 255)
+		|| (color.b < 0 || color.b > 255))
+		return (ERROR);
+	return (SUCCESS);
+}
+
+int		check_map_element(t_cub *cub, int i, int j)
+{
+	int		m;
+	int		n;
+
+	n = -2;
+	while (++n <= 1)
+	{
+		m = -2;
+		while (++m <= 1)
+		{
+			if (value_at(cub, i + m, j + n) == ' ') {
+				printf("\n");
+				printf("i:%i, j:%i == %c\n", i, j, value_at(cub, i, j));
+				return (ERROR);
+			}
+		}
+	}
+	return (SUCCESS);
+}
+
+int		check_map(t_cub *cub)
+{
+	int		i;
+	int		j;
+
+	j = -1;
+	while (++j < cub->rows)
+	{
+		i = -1;
+		while (++i < cub->map[j].columns)
+		{
+			if (!(value_at(cub, i, j) == '1' || value_at(cub, i, j) == ' ') 
+				&& IS_ERROR(check_map_element(cub, i, j)))
+				return (ERROR);
+		}
+	}
+	return (SUCCESS);
+}
+
 int		read_resolution(t_cub *cub, t_str line)
 {
 	t_str	*split;
@@ -138,80 +187,29 @@ t_bool	is_camera(t_cub *cub, int i, int j)
 int		init_camera(t_cub *cub)
 {
 	t_bool		cam_exists;
-
-	cam_exists = FALSE;
-	while (++cub->cam.y < cub->rows)
-	{
-		cub->cam.x = -1;
-		while (++cub->cam.x < cub->map[cub->cam.y].columns)
-		{
-			if (is_camera(cub, cub->cam.x, cub->cam.y))
-			{
-				if (cam_exists)
-					return (ERROR);
-				cam_exists = TRUE;
-				set_camera_rotation(cub, value_at(cub, cub->cam.x, cub->cam.y));
-				cub->cam.x = (cub->cam.x + 0.5F) * TILE_SIZE;
-				cub->cam.y = (cub->cam.y + 0.5F) * TILE_SIZE;
-			}
-		}
-		
-	}
-	return (!cam_exists ? ERROR : SUCCESS);
-}
-
-int		check_color(t_color color)
-{
-	if ((color.r < 0 || color.r > 255)
-		|| (color.g < 0 || color.g > 255)
-		|| (color.b < 0 || color.b > 255))
-		return (ERROR);
-	return (SUCCESS);
-}
-
-int		check_camera(t_cub cub)
-{
-	return 0;
-}
-
-int		check_map_element(t_cub *cub, int i, int j)
-{
-	int		m;
-	int		n;
-
-	n = -2;
-	while (++n <= 1)
-	{
-		m = -2;
-		while (++m <= 1)
-		{
-			if (value_at(cub, i + m, j + n) == ' ') {
-				printf("\n");
-				printf("i:%i, j:%i == %c\n", i, j, value_at(cub, i, j));
-				return (ERROR);
-			}
-		}
-	}
-	return (SUCCESS);
-}
-
-int		check_map(t_cub *cub)
-{
-	int		i;
-	int		j;
+	int			i;
+	int			j;
 
 	j = -1;
+	cam_exists = FALSE;
 	while (++j < cub->rows)
 	{
 		i = -1;
 		while (++i < cub->map[j].columns)
 		{
-			if (!(value_at(cub, i, j) == '1' || value_at(cub, i, j) == ' ') 
-				&& IS_ERROR(check_map_element(cub, i, j)))
-				return (ERROR);
+			if (is_camera(cub, i, j))
+			{
+				if (cam_exists)
+					return (exit_error(cub, "Error: Only one Player is required!"));
+				cam_exists = TRUE;
+				set_camera_rotation(cub, value_at(cub, i, j));
+				cub->cam.x = (i + 0.5F) * TILE_SIZE;
+				cub->cam.y = (j + 0.5F) * TILE_SIZE;
+			}
 		}
 	}
-	return (SUCCESS);
+	return (!cam_exists ? 
+			exit_error(cub, "Error: Player doesn't exist in Map!") : SUCCESS);
 }
 
 int		handle_line(t_cub *cub, t_str line)
@@ -256,5 +254,7 @@ int		ft_init_read(t_cub *cub)
 		return (exit_error(cub, "Error: Failed to close file after read!"));
 	if (IS_ERROR(check_map(cub)))
 		return (exit_error(cub, "Error: Map is not properly closed!"));
+	if (IS_ERROR(init_camera(cub)))
+		return (ERROR);
 	return (SUCCESS);
 }

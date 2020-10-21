@@ -11,7 +11,7 @@
 
 #define RAD(a) ((float)((a) * M_PI / 180))
 #define DEG(a) ((float)((a) * 180) / M_PI)
-#define TILE_SIZE 64
+#define TILE_SIZE 100
 #define FOV 60
 #define CUBTITLE "Cub3D by HAKAM"
 #define TRUE 1
