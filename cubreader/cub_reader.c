@@ -95,6 +95,11 @@ int		read_color(t_cub *cub, t_str line, int clr_index)
 	return (free_2d(split));
 }
 
+int		check_camera(t_cub cub)
+{
+	
+}
+
 int		check_map_element(t_cub *cub, int i, int j)
 {
 	int		m;
@@ -150,7 +155,7 @@ int		read_map(t_cub *cub, t_str line)
 	}
 	i = -1;
 	tmap = cub->map;
-	if(!(cub->map = malloc((++cub->rows) * sizeof(t_map))))
+	if(!(cub->map = malloc(++(cub->rows) * sizeof(t_map))))
 		return (exit_error(cub, "Error: Failed to allocate memory!"));
 	while (++i < cub->rows - 1)
 		cub->map[i] = tmap[i];

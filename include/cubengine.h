@@ -44,6 +44,20 @@ typedef struct s_color
 	int b;
 } t_color;
 
+typedef struct	s_camera
+{
+	float		x;
+	float		y;
+	float		ang;
+	float		mov_spd;
+	float		rot_spd;
+}				t_camera;
+
+typedef struct	s_ray
+{
+
+}				t_ray;
+
 typedef struct	s_img
 {
 	t_str path;

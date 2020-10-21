@@ -43,15 +43,16 @@ int		init_cub(t_cub *cub)
 {
 	int		i;
 
-	i = -1;
-	cub->errno = NULL;
-	cub->fname = NULL;
-	cub->screenshot = FALSE;
-	cub->read_nb = 0;
-	cub->cnvs.width = 0;
-	cub->cnvs.height = 0;
+	i =						-1;
+	cub->errno =			NULL;
+	cub->fname =			NULL;
+	cub->screenshot = 		FALSE;
+	cub->read_nb = 			0;
+	cub->cnvs.width = 		0;
+	cub->cnvs.height = 		0;
+	cub->map = 				NULL;
 	while (++i < 6)
-		cub->txt[i].path = NULL;
+		cub->txt[i].path =	NULL;
 	return (SUCCESS);
 }
 
