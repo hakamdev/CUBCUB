@@ -37,6 +37,17 @@
 typedef char	*t_str;
 typedef	int		t_bool;
 
+typedef struct	s_sprite
+{
+	int		x;
+	int		y;
+	float	offx;
+	float	offy;
+	float	dist;
+	float	ang;
+	int		scale;
+}				t_sprite;
+
 typedef struct s_color
 {
 	int r;
@@ -81,11 +92,13 @@ typedef struct	s_map
 /* PUT ALL GAME DATA HERE TO AVOID USING THE STUPID G_ PREFIX */
 typedef struct s_cub
 {
-	int			rows;
+	int			rows_nb;
+	int			sprs_nb;
 	int			read_nb;
 	t_str		fname;
 	t_str		errno;
 	t_map		*map;
+	t_sprite	*spr;
 	t_camera	cam;
 	t_img		cnvs;
 	t_img		txt[6];
@@ -105,10 +118,10 @@ size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strsub(char **s, unsigned int start, size_t n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+t_bool	ft_strnchar(const char *str, char c);
 int		ft_output(t_str msg, int retcode);
 void	ft_free(char **s);
 int		get_next_line(int fd, char **line);
-
 int		exit_error( t_cub *cub, t_str error_msg);
 int		ft_init_read(t_cub *cub);
 int		check_filename(t_str filename, int ext);

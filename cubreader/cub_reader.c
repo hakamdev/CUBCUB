@@ -3,7 +3,7 @@
 
 char	value_at(t_cub *cub, int x, int y)
 {
-	if ((y >= 0 && y < cub->rows) && (x >= 0 && x < cub->map[y].columns))
+	if ((y >= 0 && y < cub->rows_nb) && (x >= 0 && x < cub->map[y].columns))
 		return (cub->map[y].row[x]);
 	return (' ');
 }
@@ -48,13 +48,8 @@ int		check_map_element(t_cub *cub, int i, int j)
 	{
 		m = -2;
 		while (++m <= 1)
-		{
-			if (value_at(cub, i + m, j + n) == ' ') {
-				printf("\n");
-				printf("i:%i, j:%i == %c\n", i, j, value_at(cub, i, j));
+			if (value_at(cub, i + m, j + n) == ' ')
 				return (ERROR);
-			}
-		}
 	}
 	return (SUCCESS);
 }
@@ -65,14 +60,16 @@ int		check_map(t_cub *cub)
 	int		j;
 
 	j = -1;
-	while (++j < cub->rows)
+	while (++j < cub->rows_nb)
 	{
 		i = -1;
 		while (++i < cub->map[j].columns)
 		{
-			if (!(value_at(cub, i, j) == '1' || value_at(cub, i, j) == ' ') 
+			if (ft_strnchar("02NEWS", (value_at(cub, i, j)))
 				&& IS_ERROR(check_map_element(cub, i, j)))
-				return (ERROR);
+				return (exit_error(cub, "Error: Map is not properly closed!"));
+			else if (!ft_strnchar("012NEWS ", value_at(cub, i, j)))
+				return (exit_error(cub, "Error: Fobidden character exist in map!"));
 		}
 	}
 	return (SUCCESS);
@@ -148,14 +145,14 @@ int		read_map(t_cub *cub, t_str line)
 		return (exit_error(cub, "Error: Failed to allocate memory!"));
 		cub->map[0].row = line;
 		cub->map[0].columns = ft_strlen(line);
-		cub->rows = 1;
+		cub->rows_nb = 1;
 		return (SUCCESS);
 	}
 	i = -1;
 	tmap = cub->map;
-	if(!(cub->map = malloc(++(cub->rows) * sizeof(t_map))))
+	if(!(cub->map = malloc(++(cub->rows_nb) * sizeof(t_map))))
 		return (exit_error(cub, "Error: Failed to allocate memory!"));
-	while (++i < cub->rows - 1)
+	while (++i < cub->rows_nb - 1)
 		cub->map[i] = tmap[i];
 	cub->map[i].row = line;
 	cub->map[i].columns = ft_strlen(line);
@@ -192,7 +189,7 @@ int		init_camera(t_cub *cub)
 
 	j = -1;
 	cam_exists = FALSE;
-	while (++j < cub->rows)
+	while (++j < cub->rows_nb)
 	{
 		i = -1;
 		while (++i < cub->map[j].columns)
@@ -216,22 +213,24 @@ int		handle_line(t_cub *cub, t_str line)
 {
 	if (IS_SUCESS(ft_strncmp(line, "R ", 2)))
 		return (read_resolution(cub, line));
-	if (IS_SUCESS(ft_strncmp(line, "NO", 2)))
+	else if (IS_SUCESS(ft_strncmp(line, "NO", 2)))
 		return (read_xpm(cub, line, NORTH));
-	if (IS_SUCESS(ft_strncmp(line, "SO", 2)))
+	else if (IS_SUCESS(ft_strncmp(line, "SO", 2)))
 		return (read_xpm(cub, line, SOUTH));
-	if (IS_SUCESS(ft_strncmp(line, "WE", 2)))
+	else if (IS_SUCESS(ft_strncmp(line, "WE", 2)))
 		return (read_xpm(cub, line, WEST));
-	if (IS_SUCESS(ft_strncmp(line, "EA", 2)))
+	else if (IS_SUCESS(ft_strncmp(line, "EA", 2)))
 		return (read_xpm(cub, line, EAST));
-	if (IS_SUCESS(ft_strncmp(line, "S ", 2)))
+	else if (IS_SUCESS(ft_strncmp(line, "S ", 2)))
 		return (read_xpm(cub, line, SPR));
-	if (IS_SUCESS(ft_strncmp(line, "F ", 2)))
+	else if (IS_SUCESS(ft_strncmp(line, "F ", 2)))
 		return (read_color(cub, line, FLOOR));
-	if (IS_SUCESS(ft_strncmp(line, "C ", 2)))
+	else if (IS_SUCESS(ft_strncmp(line, "C ", 2)))
 		return (read_color(cub, line, CIEL));
-	if (line[0] == '1' || line[0] == '0' || line[0] == ' ')
+	else if (line[0] == '1' || line[0] == '0' || line[0] == ' ')
 		return (read_map(cub, line));
+	else if (line[0] != '\0')
+		return (exit_error(cub, "Error: File malformed!, Unrecognized characters!"));
 	return (SUCCESS);
 }
 
@@ -253,7 +252,7 @@ int		ft_init_read(t_cub *cub)
 	if (IS_ERROR(close(map_fd)))
 		return (exit_error(cub, "Error: Failed to close file after read!"));
 	if (IS_ERROR(check_map(cub)))
-		return (exit_error(cub, "Error: Map is not properly closed!"));
+		return (ERROR);
 	if (IS_ERROR(init_camera(cub)))
 		return (ERROR);
 	return (SUCCESS);
