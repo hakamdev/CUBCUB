@@ -95,7 +95,7 @@ int		read_color(t_cub *cub, t_str line, int clr_index)
 	return (free_2d(split));
 }
 
-int		check_map_element(int i, int j)
+int		check_map_element(t_cub *cub, int i, int j)
 {
 	int		m;
 	int		n;
@@ -106,7 +106,7 @@ int		check_map_element(int i, int j)
 		m = -2;
 		while (++m <= 1)
 		{
-			if (ft_value_at(i + m, j + n) == ' ')
+			if (value_at(cub, i + m, j + n) == ' ')
 				return (ERROR);
 		}
 	}
@@ -124,8 +124,8 @@ int		check_map(t_cub *cub)
 		i = -1;
 		while (++i < cub->map[j].columns)
 		{
-			if (!(ft_value_at(i, j) == '1' || ft_value_at(i, j) == ' ') 
-				&& IS_ERROR(check_at(i, j)))
+			if (!(value_at(cub, i, j) == '1' || value_at(cub, i, j) == ' ') 
+				&& IS_ERROR(check_at(cub, i, j)))
 				return (exit_error(cub, "Error: Map is not properly closed!"));
 		}
 	}
@@ -134,10 +134,29 @@ int		check_map(t_cub *cub)
 
 int		read_map(t_cub *cub, t_str line)
 {
+	int		i;
+	t_map	*tmap;
+
 	if (cub->read_nb != MAX_READ_CONFIG)
 		return (exit_error(cub, "Error: Missing configurations or missplaced map rows!"));
-	
-	free(line);
+	if (cub->map == NULL)
+	{
+		if(!(cub->map = malloc(1 * sizeof(t_map))))
+		return (exit_error(cub, "Error: Failed to allocate memory!"));
+		cub->map[0].row = line;
+		cub->map[0].columns = ft_strlen(line);
+		cub->rows = 1;
+		return (SUCCESS);
+	}
+	i = -1;
+	tmap = cub->map;
+	if(!(cub->map = malloc((++cub->rows) * sizeof(t_map))))
+		return (exit_error(cub, "Error: Failed to allocate memory!"));
+	while (++i < cub->rows - 1)
+		cub->map[i] = tmap[i];
+	cub->map[i].row = line;
+	cub->map[i].columns = ft_strlen(line);
+	free(tmap);
 	return (SUCCESS);
 }
 
