@@ -48,17 +48,34 @@ int		init_cub(t_cub *cub)
 	cub->cam.x =			-1;
 	cub->cam.y =			-1;
 	cub->read_nb = 			0;
+	cub->sprs_nb = 			0;
 	cub->cnvs.width = 		0;
 	cub->cnvs.height = 		0;
 	cub->errno =			NULL;
 	cub->fname =			NULL;
 	cub->screenshot = 		FALSE;
 	cub->map = 				NULL;
+	cub->spr = 				NULL;
 	cub->cam.mov_dir =		FALSE;
 	cub->cam.rot_dir =		FALSE;
 	while (++i < 6)
 		cub->txt[i].path =	NULL;
 	return (SUCCESS);
+}
+
+int		cub_game_loop(t_cub *cub) 
+{
+
+}
+
+int		key_pressed(int key, t_cub *cub)
+{
+
+}
+
+int		key_released(int key, t_cub *cub)
+{
+
 }
 
 int		main(int argc, char **argv)
@@ -71,16 +88,20 @@ int		main(int argc, char **argv)
 	if (IS_ERROR(ft_init_read(&cub)))
 		return (ft_output(cub.errno, ERROR));
 	
+	mlx_hook(cub.window, EV_KEY_PRESSED, 1L << 0, key_pressed, &cub);
+	mlx_hook(cub.window, EV_KEY_RELEASED, 1L << 1, key_released, &cub);
+	mlx_loop_hook(cub.mlx, cub_game_loop, &cub);
+	return (SUCCESS);
 	/* TEST */
-	printf("R [%i, %i]\n", cub.cnvs.width, cub.cnvs.height);
-	printf("C [%i, %i, %i]\n", cub.color[CIEL].r, cub.color[CIEL].g, cub.color[CIEL].b);
-	printf("F [%i, %i, %i]\n", cub.color[FLOOR].r, cub.color[FLOOR].g, cub.color[FLOOR].b);
-	printf("NO [%s]\n", cub.txt[NORTH].path);
-	printf("SO [%s]\n", cub.txt[SOUTH].path);
-	printf("WE [%s]\n", cub.txt[WEST].path);
-	printf("EA [%s]\n", cub.txt[EAST].path);
-	printf("S [%s]\n", cub.txt[SPR].path);
+	// printf("R [%i, %i]\n", cub.cnvs.width, cub.cnvs.height);
+	// printf("C [%i, %i, %i]\n", cub.color[CIEL].r, cub.color[CIEL].g, cub.color[CIEL].b);
+	// printf("F [%i, %i, %i]\n", cub.color[FLOOR].r, cub.color[FLOOR].g, cub.color[FLOOR].b);
+	// printf("NO [%s]\n", cub.txt[NORTH].path);
+	// printf("SO [%s]\n", cub.txt[SOUTH].path);
+	// printf("WE [%s]\n", cub.txt[WEST].path);
+	// printf("EA [%s]\n", cub.txt[EAST].path);
+	// printf("S [%s]\n", cub.txt[SPR].path);
 
-	printf("cam: x[%i], y[%i], ang[%f]\n", cub.cam.x, cub.cam.y, DEG(cub.cam.ang));
+	// printf("cam: x[%i], y[%i], ang[%f]\n", cub.cam.x, cub.cam.y, DEG(cub.cam.ang));
 	/* END TEST */
 }

@@ -34,6 +34,9 @@
 #define EXT_CUB 0
 #define EXT_XPM 1
 
+#define EV_KEY_PRESSED 2
+#define EV_KEY_RELEASED 3
+
 typedef char	*t_str;
 typedef	int		t_bool;
 
@@ -92,6 +95,8 @@ typedef struct	s_map
 /* PUT ALL GAME DATA HERE TO AVOID USING THE STUPID G_ PREFIX */
 typedef struct s_cub
 {
+	void		*window;
+	void		*mlx;
 	int			rows_nb;
 	int			sprs_nb;
 	int			read_nb;
@@ -125,5 +130,6 @@ int		get_next_line(int fd, char **line);
 int		exit_error( t_cub *cub, t_str error_msg);
 int		ft_init_read(t_cub *cub);
 int		check_filename(t_str filename, int ext);
+char	value_at(t_cub *cub, int x, int y);
 
 #endif

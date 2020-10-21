@@ -23,7 +23,27 @@ void sort_sprite(t_cub *cub)
     }
 }
 
+void init_sprites(t_cub *cub)
+{
+	int		i;
+	int		j;
 
+	j = -1;
+	while (++j < cub->rows_nb)
+	{
+		i = -1;
+		while (++i < cub->map[j].columns)
+			if (ft_strnchar("234", value_at(cub, i, j)))
+				add_sprite(cub);
+	}
+}
 
+void add_sprite(t_cub *cub, int i, int j)
+{
+	int			index;
+	t_sprite	tmp_spr;
+	t_sprite	*tmp_sprs;
 
-
+	tmp_spr.x = (i + 0.5) * TILE_SIZE;
+	tmp_spr.y = (j + 0.5) * TILE_SIZE;
+}
