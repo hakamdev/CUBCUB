@@ -125,8 +125,8 @@ int		check_map(t_cub *cub)
 		while (++i < cub->map[j].columns)
 		{
 			if (!(value_at(cub, i, j) == '1' || value_at(cub, i, j) == ' ') 
-				&& IS_ERROR(check_at(cub, i, j)))
-				return (exit_error(cub, "Error: Map is not properly closed!"));
+				&& IS_ERROR(check_map_element(cub, i, j)))
+				return (ERROR);
 		}
 	}
 	return (SUCCESS);
@@ -198,6 +198,8 @@ int		ft_init_read(t_cub *cub)
 		return(exit_error(cub, "Error: Cannot read from file!"));
 	if (IS_ERROR(handle_line(cub, line)))
 		return (ERROR);
+	if (IS_ERROR(check_map(cub)))
+		return (exit_error(cub, "Error: Map is not properly closed!"));
 	if (IS_ERROR(close(map_fd)))
 		return (exit_error(cub, "Error: Failed to close file after read!"));
 	return (SUCCESS);
