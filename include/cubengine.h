@@ -10,6 +10,7 @@
 #include <stdio.h>
 //
 
+#define POW(a)			((a) * (a))
 #define RAD(a)			((float)((a) * M_PI / 180))
 #define DEG(a)			((float)((a) * 180) / M_PI)
 #define IS_ERROR(f)		((f) == ERROR)
@@ -130,5 +131,6 @@ int		exit_error( t_cub *cub, t_str error_msg);
 int		ft_init_read(t_cub *cub);
 int		check_filename(t_str filename, int ext);
 char	value_at(t_cub *cub, int x, int y);
+void	draw(t_img *canvas, int x, int y, int color);
 
 #endif
