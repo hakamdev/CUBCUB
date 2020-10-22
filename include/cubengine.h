@@ -16,13 +16,15 @@
 #define IS_ERROR(f)		((f) == ERROR)
 #define IS_SUCESS(f)	((f) == SUCCESS)
 #define TILE_SIZE		100
-#define FOV				60
+#define FOV				RAD(60.0F)
 #define CUBTITLE		"Cub3D by HAKAM"
 #define TRUE			1
 #define FALSE			0
 #define ERROR			-1
 #define SUCCESS			0
 #define MAX_READ_CONFIG	8
+#define WIN_WIDTH		cub->cnvs.width
+#define WIN_HEIGHT		cub->cnvs.height
 
 #define NORTH 0
 #define SOUTH 1
@@ -32,6 +34,9 @@
 #define HUD   5
 #define	CIEL  0
 #define FLOOR 1
+
+#define	X 0
+#define Y 1
 
 #define EXT_CUB 0
 #define EXT_XPM 1
@@ -53,7 +58,7 @@ typedef struct	s_sprite
 	int		scale;
 }				t_sprite;
 
-typedef struct s_color
+typedef struct	s_color
 {
 	int r;
 	int g;
@@ -71,9 +76,21 @@ typedef struct	s_camera
 	t_bool		rot_dir;
 }				t_camera;
 
+typedef struct	s_rdata
+{
+	float		hit[2];
+	float		inter[2];
+	float		step[2];
+	float		dist;
+}				t_rdata;
+
 typedef struct	s_ray
 {
-
+	float		dist;
+	float		ang;
+	float		hit[2];
+	t_bool		dir[4];
+	t_bool		hitver;
 }				t_ray;
 
 typedef struct	s_img
@@ -94,7 +111,6 @@ typedef struct	s_map
 	int		columns;
 }				t_map;
 
-/* PUT ALL GAME DATA HERE TO AVOID USING THE STUPID G_ PREFIX */
 typedef struct s_cub
 {
 	void		*window;
@@ -106,6 +122,7 @@ typedef struct s_cub
 	t_str		errno;
 	t_map		*map;
 	t_sprite	*spr;
+	t_ray		*ray;
 	t_camera	cam;
 	t_img		cnvs;
 	t_img		txt[6];
@@ -114,14 +131,14 @@ typedef struct s_cub
 }				t_cub;
 
 /* FUNCTIONS */
-int		ft_atoi(const char *str);
-void	ft_putnbr(int n);
 char	**ft_split(const char *ss, char c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strdup(const char *s);
-size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strsub(char **s, unsigned int start, size_t n);
+int		ft_atoi(const char *str);
+void	ft_putnbr(int n);
+size_t	ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 t_bool	ft_strnchar(const char *str, char c);
 int		ft_output(t_str msg, int retcode);
@@ -132,5 +149,6 @@ int		ft_init_read(t_cub *cub);
 int		check_filename(t_str filename, int ext);
 char	value_at(t_cub *cub, int x, int y);
 void	draw(t_img *canvas, int x, int y, int color);
+float	normalize_rad(float angle);
 
 #endif

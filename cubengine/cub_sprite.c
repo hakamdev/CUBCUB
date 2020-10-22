@@ -131,8 +131,10 @@ int		init_sprites(t_cub *cub)
 		i = -1;
 		while (++i < cub->map[j].columns)
 			if (ft_strnchar("234", value_at(cub, i, j)))
+			{
 				if (IS_ERROR(add_sprite(cub, i, j)))
 					return (cub, "Error: Failed to allocate memory!");
+			}
 	}
 	return (SUCCESS);
 }
