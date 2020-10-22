@@ -175,8 +175,10 @@ int		set_camera_rotation(t_cub *cub, char direction)
 
 t_bool	is_camera(t_cub *cub, int i, int j)
 {
-	if (value_at(cub, i, j) == 'N' || value_at(cub, i, j) == 'W' ||
-		value_at(cub, i, j) == 'S' || value_at(cub, i, j) == 'E')
+	if (value_at(cub, i, j) == 'N' ||
+		value_at(cub, i, j) == 'S' ||
+		value_at(cub, i, j) == 'W' ||
+		value_at(cub, i, j) == 'E')
 		return (TRUE);
 	return (FALSE);
 }

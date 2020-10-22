@@ -5,7 +5,7 @@ NAMING CONVENTIONS
 
 #include "../include/cubengine.h"
 
-int		exit_error( t_cub *cub, t_str error_msg)
+int		exit_error(t_cub *cub, t_str error_msg)
 {
 	if (error_msg)
 		cub->errno = error_msg;
