@@ -26,25 +26,42 @@ void	init_ray(t_ray *ray)
 		ray->dir[WEST] = !(ray->dir[EAST]);
 }
 
-void	hori_collision(t_rdata *rd, t_ray *ray, int ax1, int ax2)
+void	hori_collision(t_cub *cub, t_rdata *h, t_ray *r)
 {
-	rd->dist = INT32_MAX;
-	//rd->inter[ax1] = floorf()
+	h->dist = INT32_MAX;
+	h->inter[Y] = floorf(cub->cam.y / (float)TILE_SIZE) * TILE_SIZE;
+	h->inter[Y] += r->dir[SOUTH] ? TILE_SIZE : 0;
+	h->inter[X] = cub->cam.x + (h->inter[Y] - cub->cam.y) / tanf(r->ang);
+	h->step[Y] = TILE_SIZE;
+	h->step[Y] *= r->dir[NORTH] ? -1 : 1;
+	h->step[X] = TILE_SIZE / tanf(r->ang);
+	h->step[X] *= (r->dir[WEST] && h->step[X] > 0.0F) ? -1 : 1;
+	h->step[X] *= (r->dir[EAST] && h->step[X] < 0.0F) ? -1 : 1;
+	h->hit[X] = h->inter[X];
+	h->hit[Y] = h->inter[Y];
+	while (h->hit[Y] >= 0.0F && h->hit[X] >= 0.0F)
+	{
+		if (is_wall(/* TODO */))
+		{
+			h->dist = get_distance();
+		}
+	}
+	
 }
 
-void	vert_collision(t_rdata *ver, t_ray *ray)
+void	vert_collision(t_cub *cub, t_rdata *v, t_ray *r)
 {
 
 }
 
-void	update_ray(t_ray *ray)
+void	update_ray(t_cub *cub, t_ray *ray)
 {
 	t_rdata		horizontal;
 	t_rdata		vertical;
 
 	init_ray(ray);
-	hori_collision(&horizontal, ray);
-	vert_collision(&vertical, ray);
+	hori_collision(cub, &horizontal, ray);
+	vert_collision(cub, &vertical, ray);
 	if (vertical.dist > horizontal.dist)
 	{
 		ray->hitver = FALSE;
@@ -72,7 +89,7 @@ void	update_rays(t_cub *cub)
 	while (++i < WIN_WIDTH)
 	{
 		cub->ray[i].ang = normalize_rad(start_ang);
-		update_ray(&cub->ray[i]);
+		update_ray(cub, &cub->ray[i]);
 		start_ang += angle_step;
 	}
 }

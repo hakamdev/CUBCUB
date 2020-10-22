@@ -17,7 +17,7 @@
 #define IS_SUCESS(f)	((f) == SUCCESS)
 #define TILE_SIZE		100
 #define FOV				RAD(60.0F)
-#define CUBTITLE		"Cub3D by HAKAM"
+#define CUBTITLE		"CUB3D BY HAKAM"
 #define TRUE			1
 #define FALSE			0
 #define ERROR			-1
@@ -53,6 +53,8 @@ typedef struct	s_sprite
 	int		y;
 	float	offx;
 	float	offy;
+	int		p[2];
+	float	off[2];
 	float	dist;
 	float	ang;
 	int		scale;
@@ -69,6 +71,7 @@ typedef struct	s_camera
 {
 	int			x;
 	int			y;
+	int			p[2];
 	float		ang;
 	float		mov_spd;
 	float		rot_spd;
@@ -150,5 +153,6 @@ int		check_filename(t_str filename, int ext);
 char	value_at(t_cub *cub, int x, int y);
 void	draw(t_img *canvas, int x, int y, int color);
 float	normalize_rad(float angle);
+float	get_distance(t_cub *cub, float x, float y);
 
 #endif
