@@ -35,9 +35,11 @@
 *.i*86
 *.x86_64
 *.hex
+cub3d
 
 # Debug files
 *.dSYM/
+.vscode/
 *.su
 *.idb
 *.pdb
