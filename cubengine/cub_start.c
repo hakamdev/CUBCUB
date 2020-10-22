@@ -1,8 +1,3 @@
-/* ***
-NAMING CONVENTIONS
-	init { reset } -> render/draw
-*** */
-
 #include "../include/cubengine.h"
 
 int		exit_error(t_cub *cub, t_str error_msg)
@@ -23,7 +18,6 @@ int		check_filename(t_str filename, int ext)
 	return (ERROR);
 }
 
-//
 int		init_args( t_cub *cub, int argc, const t_str *args)
 {
 	if (argc < 2)
@@ -37,6 +31,20 @@ int		init_args( t_cub *cub, int argc, const t_str *args)
 		cub->screenshot = TRUE;
 	else if (argc == 3)
 		return(exit_error(cub, "Error: 2nd arg is not recognized! provide --save instead for screenshot!"));
+	return (SUCCESS);
+}
+
+int		init_game(t_cub *cub, int ac, int av)
+{
+	init_cub(cub);
+	if (IS_ERROR(init_args(&cub, ac, av)))
+		return (ft_output(cub->errno, ERROR));
+	if (IS_ERROR(init_read(&cub)))
+		return (ft_output(cub->errno, ERROR));
+	/* TODO */
+	init_camera(cub);
+	init_rays(cub);
+	init_sprites(cub);
 	return (SUCCESS);
 }
 
@@ -58,6 +66,8 @@ int		init_cub(t_cub *cub)
 	cub->spr = 				NULL;
 	cub->cam.mov_dir =		FALSE;
 	cub->cam.rot_dir =		FALSE;
+	cub->cam.mov_spd = 		(TILE_SIZE / 20.0F);
+	cub->cam.rot_spd =		RAD(1.0F);
 	while (++i < 6)
 		cub->txt[i].path =	NULL;
 	return (SUCCESS);
@@ -82,11 +92,7 @@ int		main(int argc, char **argv)
 {
 	t_cub	cub;
 
-	init_cub(&cub);
-	if (IS_ERROR(init_args(&cub, argc, argv)))
-		return (ft_output(cub.errno, ERROR));
-	if (IS_ERROR(ft_init_read(&cub)))
-		return (ft_output(cub.errno, ERROR));
+	init_game(&cub, argc, argv);
 	
 	mlx_hook(cub.window, EV_KEY_PRESSED, 1L << 0, key_pressed, &cub);
 	mlx_hook(cub.window, EV_KEY_RELEASED, 1L << 1, key_released, &cub);
