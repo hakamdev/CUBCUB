@@ -32,6 +32,7 @@
 #define EAST  3
 #define SPR	  4
 #define HUD   5
+
 #define	CIEL  0
 #define FLOOR 1
 
@@ -101,6 +102,8 @@ typedef struct	s_img
 	t_str path;
 	void *img;
 	int	*data;
+	float hratio;
+	float vratio;
 	int	width;
 	int	height;
 	int bpp;

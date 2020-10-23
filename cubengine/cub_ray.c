@@ -58,20 +58,26 @@ void	vert_collision(t_cub *cub, t_rdata *v, t_ray *r)
 	}
 }
 
-int		init_rays(t_cub *cub)
+void	update_ray(t_cub *cub, t_ray *ray)
 {
-	int		i;
+	t_rdata		horizontal;
+	t_rdata		vertical;
 
-	i = -1;
-	if (!(cub->ray = malloc(sizeof(t_ray) * WIN_WIDTH)))
-		return (ERROR);
-	while (++i < WIN_WIDTH)
+	init_ray(ray);
+	hori_collision(cub, &horizontal, ray);
+	vert_collision(cub, &vertical, ray);
+	if (vertical.dist > horizontal.dist)
 	{
-		cub->ray[i].dist = 0.0F;
-		cub->ray[i].hit[X] = 0.0F;
-		cub->ray[i].hit[Y] = 0.0F;
-		cub->ray[i].hitver = FALSE;
-		init_ray(&cub->ray[i]);
+		ray->hitver = FALSE;
+		ray->dist = horizontal.dist;
+		ray->hit[X] = horizontal.hit[X];
+		ray->hit[Y] = horizontal.hit[Y];
 	}
-	return (SUCCESS);
+	else
+	{
+		ray->hitver = TRUE;
+		ray->dist = vertical.dist;
+		ray->hit[X] = vertical.hit[X];
+		ray->hit[Y] = vertical.hit[Y];
+	}
 }

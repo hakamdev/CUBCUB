@@ -9,33 +9,6 @@ float	normalize_spr(t_cub *cub, float angle)
 	return (angle);
 }
 
-void	render_sprite(t_cub *cub, int id, int offx, int offy)
-{
-	int			i;
-	int			j;
-	int			clr_index;
-	const int	max = WIN_WIDTH * WIN_HEIGHT;
-
-	i = -1;
-	while (++i < cub->spr[id].scale)
-	{
-		if (offx + i < 0 || offx + i >= WIN_WIDTH ||
-			cub->ray[offx + i].dist <= cub->spr[id].dist)
-			continue ;
-		j = -1;
-		while (++j < cub->spr[id].scale)
-		{
-			if (offy + j < 0 || offy + j >= WIN_WIDTH)
-				continue ;
-			clr_index = cub->txt[SPR].width * (cub->txt[SPR].width * j / cub->spr[id].scale) +
-												(cub->txt[SPR].width * i / cub->spr[id].scale);
-			clr_index = clr_index >= max ? max : clr_index;
-			if (cub->txt[SPR].data[clr_index] != 0x980088)
-				draw(&cub->cnvs, offx, offy, cub->txt[SPR].data[clr_index]);
-		}
-	}
-}
-
 void	sort_sprites(t_cub *cub)
 {
     int i;
@@ -83,21 +56,4 @@ int		add_sprite(t_cub *cub, int i, int j)
 	return (SUCCESS);
 }
 
-int		init_sprites(t_cub *cub)
-{
-	int		i;
-	int		j;
 
-	j = -1;
-	while (++j < cub->rows_nb)
-	{
-		i = -1;
-		while (++i < cub->map[j].columns)
-			if (ft_strnchar("234", value_at(cub, i, j)))
-			{
-				if (IS_ERROR(add_sprite(cub, i, j)))
-					return (cub, "Error: Failed to allocate memory!");
-			}
-	}
-	return (SUCCESS);
-}

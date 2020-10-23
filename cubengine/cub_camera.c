@@ -22,31 +22,3 @@ t_bool	is_camera(t_cub *cub, int i, int j)
 		return (TRUE);
 	return (FALSE);
 }
-
-int		init_camera(t_cub *cub)
-{
-	t_bool		cam_exists;
-	int			i;
-	int			j;
-
-	j = -1;
-	cam_exists = FALSE;
-	while (++j < cub->rows_nb)
-	{
-		i = -1;
-		while (++i < cub->map[j].columns)
-		{
-			if (is_camera(cub, i, j))
-			{
-				if (cam_exists)
-					return (exit_error(cub, "Error: Only one Player is required!"));
-				cam_exists = TRUE;
-				set_camera_rotation(cub, value_at(cub, i, j));
-				cub->cam.x = (i + 0.5F) * TILE_SIZE;
-				cub->cam.y = (j + 0.5F) * TILE_SIZE;
-			}
-		}
-	}
-	return (!cam_exists ? 
-			exit_error(cub, "Error: Player doesn't exist in Map!") : SUCCESS);
-}

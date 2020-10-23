@@ -29,8 +29,8 @@ int		main(int argc, char **argv)
 
 	if (IS_ERROR(init_game(&cub, argc, argv)))
 		return (clean(&cub, ERROR));
-	mlx_hook(cub.window, EV_KEY_PRESSED, 1L << 0, key_pressed, &cub);
-	mlx_hook(cub.window, EV_KEY_RELEASED, 1L << 1, key_released, &cub);
-	mlx_loop_hook(cub.mlx, cub_game_loop, &cub);
+	mlx_hook(cub.window, EV_KEY_PRESSED, 1L << 0, event_key_pressed, &cub);
+	mlx_hook(cub.window, EV_KEY_RELEASED, 1L << 1, event_key_released, &cub);
+	mlx_loop_hook(cub.mlx, event_game_loop, &cub);
 	return (SUCCESS);
 }

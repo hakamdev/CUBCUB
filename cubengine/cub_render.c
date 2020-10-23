@@ -1,24 +1,30 @@
 #include "../include/cubengine.h"
 
-int		get_color_from_txt(t_cub *cub, t_wdata *stripe, int pos[2], int img)
+void	render_sprite(t_cub *cub, int id, int offx, int offy)
 {
-	int			off[2];
-	float		vertoff;
-	const int	x = pos[X];
-	const int	y = pos[Y];
+	int			i;
+	int			j;
+	int			clr_index;
+	const int	max = WIN_WIDTH * WIN_HEIGHT;
 
-	vertoff = y + (stripe->height - WIN_HEIGHT) / 2; /*TODO updown */
-	off[X] = (int)(cub->ray[x].hitver ? cub->ray[x].hit[Y] :
-					cub->ray[x].hit[X]) % cub->txt[img].height;
-	off[Y] = vertoff * (cub->txt[img].height / stripe->height);
-	off[X] = off[X] < 0 ? 0 : off[X];
-	off[Y] = off[Y] < 0 ? 0 : off[Y];
-	return (cub->txt[img].data[(off[Y] * cub->txt[img].width) + off[X]]);
-}
-
-void    render_hud(t_cub *cub)
-{
-
+	i = -1;
+	while (++i < cub->spr[id].scale)
+	{
+		if (offx + i < 0 || offx + i >= WIN_WIDTH ||
+			cub->ray[offx + i].dist <= cub->spr[id].dist)
+			continue ;
+		j = -1;
+		while (++j < cub->spr[id].scale)
+		{
+			if (offy + j < 0 || offy + j >= WIN_WIDTH)
+				continue ;
+			clr_index = cub->txt[SPR].width * (cub->txt[SPR].width * j / cub->spr[id].scale) +
+												(cub->txt[SPR].width * i / cub->spr[id].scale);
+			clr_index = clr_index >= max ? max : clr_index;
+			if (cub->txt[SPR].data[clr_index] != 0x980088)
+				draw(&cub->cnvs, offx, offy, cub->txt[SPR].data[clr_index]);
+		}
+	}
 }
 
 void    render_wall_stripe(t_cub *cub, t_wdata *stripe, int x)
