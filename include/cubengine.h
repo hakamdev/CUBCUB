@@ -1,49 +1,49 @@
 #ifndef	CUBENGINE_H
-# define	CUBENGINE_H
+# define CUBENGINE_H
 
-#include <mlx.h>
-#include <math.h>
-#include <unistd.h>
-#include <stdlib.h>
+# include <mlx.h>
+# include <math.h>
+# include <unistd.h>
+# include <stdlib.h>
 
 // Test
-#include <stdio.h>
+# include <stdio.h>
 //
 
-#define POW(a)			((a) * (a))
-#define RAD(a)			((float)((a) * M_PI / 180))
-#define DEG(a)			((float)((a) * 180) / M_PI)
-#define IS_ERROR(f)		((f) == ERROR)
-#define IS_SUCESS(f)	((f) == SUCCESS)
-#define TILE_SIZE		100
-#define FOV				RAD(60.0F)
-#define CUBTITLE		"CUB3D BY HAKAM"
-#define TRUE			1
-#define FALSE			0
-#define ERROR			-1
-#define SUCCESS			0
-#define MAX_READ_CONFIG	8
-#define WIN_WIDTH		cub->cnvs.width
-#define WIN_HEIGHT		cub->cnvs.height
+# define POW(a)			 ((a) * (a))
+# define RAD(a)			 ((float)((a) * M_PI / 180))
+# define DEG(a)			 ((float)((a) * 180) / M_PI)
+# define IS_ERROR(f)	 ((f) == ERROR)
+# define IS_SUCESS(f)	 ((f) == SUCCESS)
+# define TILE_SIZE		 100
+# define FOV			 RAD(60.0F)
+# define CUBTITLE		 "CUB3D BY HAKAM"
+# define TRUE			 1
+# define FALSE			 0
+# define ERROR			 -1
+# define SUCCESS		 0
+# define MAX_READ_CONFIG 8
+# define WIN_WIDTH		 cub->cnvs.width
+# define WIN_HEIGHT		 cub->cnvs.height
 
-#define NORTH 0
-#define SOUTH 1
-#define WEST  2
-#define EAST  3
-#define SPR	  4
-#define HUD   5
+# define NORTH	0
+# define SOUTH	1
+# define WEST	2
+# define EAST	3
+# define SPR	4
+# define HUD	5
 
-#define	CIEL  0
-#define FLOOR 1
+# define	CIEL  0
+# define FLOOR 1
 
-#define	X 0
-#define Y 1
+# define	X 0
+# define Y 1
 
-#define EXT_CUB 0
-#define EXT_XPM 1
+# define EXT_CUB 0
+# define EXT_XPM 1
 
-#define EV_KEY_PRESSED	2
-#define EV_KEY_RELEASED	3
+# define EV_KEY_PRESSED	2
+# define EV_KEY_RELEASED	3
 
 typedef char	*t_str;
 typedef	int		t_bool;
@@ -73,8 +73,8 @@ typedef struct	s_camera
 	float		ang;
 	float		mov_spd;
 	float		rot_spd;
-	t_bool		mov_dir;
-	t_bool		rot_dir;
+	int			mov_dir;
+	int			rot_dir;
 }				t_camera;
 typedef struct	s_rdata
 {
@@ -156,6 +156,16 @@ void	draw(t_img *canvas, int x, int y, int color);
 float	normalize_rad(float angle);
 float	get_distance(t_cub *cub, float x, float y);
 t_bool	is_wall(t_cub *cub, int i, int j);
+
+void    update_hud_rendering(t_cub *cub, t_img *hud);
+void	update_sprites_rendering(t_cub *cub);
 void	update_walls_rendering(t_cub *cub);
+void	update_camera(t_cub *cub);
+void	update_rays(t_cub *cub);
+int		init_textures(t_cub *cub);
+
+int		event_key_pressed(int key, t_cub *cub);
+int		event_key_released(int key, t_cub *cub);
+int		event_game_loop(t_cub *cub);
 
 #endif

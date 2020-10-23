@@ -25,15 +25,6 @@ int		init_read(t_cub *cub)
 	return (SUCCESS);
 }
 
-int		init_cam(t_cub *cub)
-{
-	cub->cam.mov_dir =		FALSE;
-	cub->cam.rot_dir =		FALSE;
-	cub->cam.mov_spd = 		(TILE_SIZE / 20.0F);
-	cub->cam.rot_spd =		RAD(1.0F);
-	return (SUCCESS);
-}
-
 int		init_mlx(t_cub *cub)
 {
 	if (!(cub->mlx = mlx_init()))
@@ -44,6 +35,15 @@ int		init_mlx(t_cub *cub)
 		return (exit_error(cub, "Error: Failed to initialize Canvas!"));
 	cub->cnvs.data = (int *)mlx_get_data_addr(cub->cnvs.img, &cub->cnvs.bpp,
 											&cub->cnvs.sl, &cub->cnvs.end);
+	return (SUCCESS);
+}
+
+int		init_cam(t_cub *cub)
+{
+	cub->cam.mov_dir =		0;
+	cub->cam.rot_dir =		0;
+	cub->cam.mov_spd = 		(TILE_SIZE / 20.0F);
+	cub->cam.rot_spd =		RAD(1.0F);
 	return (SUCCESS);
 }
 
@@ -69,6 +69,7 @@ int		init_cub(t_cub *cub)
 	return (SUCCESS);
 }
 
+/* MAIN INITIALIZION FUNCTION */
 int		init_game(t_cub *cub, int ac, int av)
 {
 	init_cub(cub);
@@ -79,6 +80,8 @@ int		init_game(t_cub *cub, int ac, int av)
 	if (IS_ERROR(init_camera(cub)))
 		return (ft_output(cub->errno, ERROR));
 	if (IS_ERROR(init_mlx(cub)))
+		return (ft_output(cub->errno, ERROR));
+	if (IS_ERROR(init_textures(cub)))
 		return (ft_output(cub->errno, ERROR));
 	if (IS_ERROR(init_rays(cub)))
 		return (ft_output(cub->errno, ERROR));
