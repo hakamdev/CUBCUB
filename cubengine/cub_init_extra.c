@@ -1,6 +1,6 @@
 #include "../include/cubengine.h"
 
-int		init_extra_textures(t_cub *cub)
+int		init_textures_extra(t_cub *cub)
 {
 	if (!(cub->txt[SPR].img = mlx_xpm_file_to_image(cub->mlx,
 	cub->txt[SPR].path, &cub->txt[SPR].width, &cub->txt[SPR].height)))
@@ -37,7 +37,7 @@ int		init_textures(t_cub *cub)
 		&cub->txt[WEST].bpp, &cub->txt[WEST].sl, &cub->txt[WEST].end);
 	cub->txt[EAST].data = (int *)mlx_get_data_addr(cub->txt[EAST].img,
 		&cub->txt[EAST].bpp, &cub->txt[EAST].sl, &cub->txt[EAST].end);
-	return (init_extra_textures(cub));
+	return (init_textures_extra(cub));
 }
 
 int		init_sprites(t_cub *cub)
@@ -77,30 +77,3 @@ int		init_rays(t_cub *cub)
 	return (SUCCESS);
 }
 
-int		init_camera(t_cub *cub)
-{
-	t_bool		cam_exists;
-	int			i;
-	int			j;
-
-	j = -1;
-	cam_exists = FALSE;
-	while (++j < cub->rows_nb)
-	{
-		i = -1;
-		while (++i < cub->map[j].columns)
-		{
-			if (is_camera(cub, i, j))
-			{
-				if (cam_exists)
-					return (exit_error(cub, "Error: Only one Player is required!"));
-				cam_exists = TRUE;
-				set_camera_rotation(cub, value_at(cub, i, j));
-				cub->cam.x = (i + 0.5F) * TILE_SIZE;
-				cub->cam.y = (j + 0.5F) * TILE_SIZE;
-			}
-		}
-	}
-	return (!cam_exists ? 
-			exit_error(cub, "Error: Player doesn't exist in Map!") : SUCCESS);
-}
