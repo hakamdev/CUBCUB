@@ -6,14 +6,13 @@ void	update_camera(t_cub *cub)
 	float	next_y;
 
 	next_x = cub->cam.x + cub->cam.mov_spd * 
-			cub->cam.mov_dir * cosf(cub->cam.ang /* TODO */);
+			cub->cam.mov_dir * cosf(cub->cam.ang /* TODO updown */);
 	next_y = cub->cam.y + cub->cam.mov_spd * 
-			cub->cam.mov_dir * sinf(cub->cam.ang /* TODO */);
+			cub->cam.mov_dir * sinf(cub->cam.ang /* TODO updown */);
 	cub->cam.ang = cub->cam.ang + cub->cam.rot_spd * cub->cam.rot_dir;
-	/* TODO */
-	if (FALSE)
+	if (!is_wall(cub, next_x, cub->cam.y) && !is_sprite(cub, next_x, cub->cam.y))
 		cub->cam.x = next_x;
-	if (FALSE)
+	if (!is_wall(cub, cub->cam.x, next_y) && !is_sprite(cub, cub->cam.x, next_y))
 		cub->cam.y = next_y;
 }
 
@@ -33,7 +32,7 @@ void	update_rays(t_cub *cub)
 	}
 }
 
-void	update_walls_rendering(t_cub *cub)
+void	update_rendering_walls(t_cub *cub)
 {
 	int		i;
 	int		j;
@@ -54,7 +53,7 @@ void	update_walls_rendering(t_cub *cub)
 	}
 }
 
-void	update_sprites_rendering(t_cub *cub)
+void	update_rendering_sprites(t_cub *cub)
 {
 	int			i;
 	const float	pplane_dist = WIN_WIDTH / 2.0F / tanf(RAD(FOV / 2.0F));;
@@ -76,7 +75,7 @@ void	update_sprites_rendering(t_cub *cub)
 		render_sprite(cub, i, cub->spr[i].offx, cub->spr[i].offy);
 }
 
-void    update_hud_rendering(t_cub *cub, t_img *hud)
+void    update_rendering_hud(t_cub *cub, t_img *hud)
 {
 	int			x;
 	int			y;

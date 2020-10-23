@@ -40,10 +40,19 @@ char	value_at(t_cub *cub, int x, int y)
 	return (' ');
 }
 
-t_bool	is_wall(t_cub *cub, int i, int j)
+t_bool	is_wall(t_cub *cub, float x, float y)
 {
+	const int	i = x / TILE_SIZE;	
+	const int	j = y / TILE_SIZE;
 	return (value_at(cub, i, j) == '1' ||
 			value_at(cub, i, j) == ' ');
+}
+
+t_bool	is_sprite(t_cub *cub, float x, float y)
+{
+	const int	i = x / TILE_SIZE;
+	const int	j = y / TILE_SIZE;
+	return (ft_strnchar("234", value_at(cub, i, j)));
 }
 
 float	normalize_rad(float angle)

@@ -70,10 +70,10 @@ int		init_cub(t_cub *cub)
 }
 
 /* MAIN INITIALIZION FUNCTION */
-int		init_game(t_cub *cub, int ac, int av)
+int		init_game(t_cub *cub, int ac, t_str *av)
 {
 	init_cub(cub);
-	if (IS_ERROR(handle_args(cub, ac, av)))
+	if (IS_ERROR(check_args(cub, ac, av)))
 		return (ft_output(cub->errno, ERROR));
 	if (IS_ERROR(init_read(cub)))
 		return (ft_output(cub->errno, ERROR));
