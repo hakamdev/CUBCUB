@@ -33,16 +33,4 @@ int		main(int argc, char **argv)
 	mlx_hook(cub.window, EV_KEY_RELEASED, 1L << 1, key_released, &cub);
 	mlx_loop_hook(cub.mlx, cub_game_loop, &cub);
 	return (SUCCESS);
-	/* TEST */
-	// printf("R [%i, %i]\n", cub.cnvs.width, cub.cnvs.height);
-	// printf("C [%i, %i, %i]\n", cub.color[CIEL].r, cub.color[CIEL].g, cub.color[CIEL].b);
-	// printf("F [%i, %i, %i]\n", cub.color[FLOOR].r, cub.color[FLOOR].g, cub.color[FLOOR].b);
-	// printf("NO [%s]\n", cub.txt[NORTH].path);
-	// printf("SO [%s]\n", cub.txt[SOUTH].path);
-	// printf("WE [%s]\n", cub.txt[WEST].path);
-	// printf("EA [%s]\n", cub.txt[EAST].path);
-	// printf("S [%s]\n", cub.txt[SPR].path);
-
-	// printf("cam: x[%i], y[%i], ang[%f]\n", cub.cam.x, cub.cam.y, DEG(cub.cam.ang));
-	/* END TEST */
 }
