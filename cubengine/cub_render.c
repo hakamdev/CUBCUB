@@ -5,7 +5,10 @@ void	draw(t_img *canvas, int x, int y, int color)
     canvas->data[y * canvas->width + x] = color;
 }
 
-int		color_rgb_to_hex()
+int		color_rgb_to_hex(t_color clr)
+{
+	return ((clr.r * POW(256)) + (clr.g * 256) + clr.b);
+}
 
 int		get_color_from_txt(t_cub *cub, t_wdata *stripe, int pos[2], int img)
 {
@@ -51,32 +54,14 @@ void    render_wall_stripe(t_cub *cub, t_wdata *stripe, int x)
     }
 }
 
-void	render_horizon_stripe(t_cub *cub, int ystart, int yend, int x)
+void	render_ciel_stripe(t_cub *cub, int ystart, int yend, int x)
 {
 	while (ystart < yend)
-	{
-		draw(&cub->cnvs, x, ystart, /* */)
-	}
-	
+		draw(&cub->cnvs, x, ystart++, color_rgb_to_hex(cub->color[CIEL]));
 }
 
-void	render_walls(t_cub *cub)
+void	render_flor_stripe(t_cub *cub, int ystart, int yend, int x)
 {
-	int		i;
-	int		j;
-	float	pplane_dist;
-	t_wdata	strp;
-
-	i = -1;
-	pplane_dist	= (WIN_WIDTH / 2.0F) / tanf((FOV) / 2);
-	while (++i < WIN_WIDTH)
-	{
-		cub->ray[i].dist *= cosf(cub->ray[i].ang - cub->cam.ang);
-		strp.height = TILE_SIZE / cub->ray[i].dist * pplane_dist;
-		strp.top = ((float)WIN_HEIGHT / 2) - (strp.height / 2); /* TODO updown */
-		strp.bttm = ((float)WIN_HEIGHT / 2) + (strp.height / 2); /* TODO updown */
-
-	}
-	
-
+	while (ystart < yend)
+		draw(&cub->cnvs, x, ystart++, color_rgb_to_hex(cub->color[FLOOR]));
 }

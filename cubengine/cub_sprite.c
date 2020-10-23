@@ -1,15 +1,5 @@
 #include "../include/cubengine.h"
 
-float	normalize_rad(float angle)
-{
-	const float two_pi = 2 * M_PI;
-
-	angle = remainderf(angle, two_pi);
-	if (angle < 0)
-		angle += two_pi;
-	return (angle);
-}
-
 float	normalize_spr(t_cub *cub, float angle)
 {
 	while (angle - cub->cam.ang > M_PI)
@@ -17,11 +7,6 @@ float	normalize_spr(t_cub *cub, float angle)
     while (angle - cub->cam.ang < -M_PI)
         angle += 2 * M_PI;
 	return (angle);
-}
-
-float	get_distance(t_cub *cub, float x, float y)
-{
-	return (sqrtf(POW(x - cub->cam.x) + POW(y - cub->cam.y)));
 }
 
 void	render_sprite(t_cub *cub, int id, int offx, int offy)
@@ -49,28 +34,6 @@ void	render_sprite(t_cub *cub, int id, int offx, int offy)
 				draw(&cub->cnvs, offx, offy, cub->txt[SPR].data[clr_index]);
 		}
 	}
-}
-
-void	update_sprites(t_cub *cub)
-{
-	int			i;
-	const float	pplane_dist = WIN_WIDTH / 2.0F / tanf(RAD(FOV / 2.0F));;
-
-	i = -1;
-	while (++i < cub->sprs_nb)
-	{
-		cub->spr[i].dist = get_distance(cub, cub->spr[i].x, cub->spr[i].y);
-		cub->spr[i].ang = atan2f(cub->spr[i].y - cub->cam.y, cub->spr[i].x - cub->cam.x);
-		cub->spr[i].ang = normalize_spr(cub, cub->spr[i].ang);
-		cub->spr[i].scale = (TILE_SIZE / (cub->spr[i].dist * pplane_dist));
-		cub->spr[i].offy = (WIN_HEIGHT / 2.0F) - (cub->spr[i].scale / 2.0F);
-		cub->spr[i].offx = ((DEG(cub->spr[i].ang - DEG(cub->cam.ang))) * WIN_WIDTH) / TILE_SIZE +
-							((WIN_WIDTH / 2.0F) - (cub->spr[i].scale / 2.0F));
-	}
-	sort_sprite(cub);
-	i = -1;
-	while (++i < cub->sprs_nb)
-		render_sprite(cub, i, cub->spr[i].offx, cub->spr[i].offy);
 }
 
 void	sort_sprites(t_cub *cub)

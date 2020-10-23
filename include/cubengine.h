@@ -153,5 +153,6 @@ void	draw(t_img *canvas, int x, int y, int color);
 float	normalize_rad(float angle);
 float	get_distance(t_cub *cub, float x, float y);
 t_bool	is_wall(t_cub *cub, int i, int j);
+void	update_walls_rendering(t_cub *cub);
 
 #endif

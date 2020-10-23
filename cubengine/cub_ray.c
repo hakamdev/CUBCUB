@@ -64,46 +64,6 @@ void	vert_collision(t_cub *cub, t_rdata *v, t_ray *r)
 	}
 }
 
-void	update_ray(t_cub *cub, t_ray *ray)
-{
-	t_rdata		horizontal;
-	t_rdata		vertical;
-
-	init_ray(ray);
-	hori_collision(cub, &horizontal, ray);
-	vert_collision(cub, &vertical, ray);
-	if (vertical.dist > horizontal.dist)
-	{
-		ray->hitver = FALSE;
-		ray->dist = horizontal.dist;
-		ray->hit[X] = horizontal.hit[X];
-		ray->hit[Y] = horizontal.hit[Y];
-	}
-	else
-	{
-		ray->hitver = TRUE;
-		ray->dist = vertical.dist;
-		ray->hit[X] = vertical.hit[X];
-		ray->hit[Y] = vertical.hit[Y];
-	}
-}
-
-void	update_rays(t_cub *cub)
-{
-	int			i;
-	float		start_ang;
-	const float	angle_step = FOV / WIN_WIDTH;
-
-	i = -1;
-	start_ang = cub->cam.ang - (FOV / 2);
-	while (++i < WIN_WIDTH)
-	{
-		cub->ray[i].ang = normalize_rad(start_ang);
-		update_ray(cub, &cub->ray[i]);
-		start_ang += angle_step;
-	}
-}
-
 int		init_rays(t_cub *cub)
 {
 	int		i;
