@@ -59,8 +59,8 @@ int		init_cub(t_cub *cub)
 	cub->cam.y =			-1;
 	cub->read_nb = 			0;
 	cub->sprs_nb = 			0;
-	cub->cnvs.width = 		0;
-	cub->cnvs.height = 		0;
+	WIN_WIDTH = 			0;
+	WIN_HEIGHT = 			0;
 	cub->errno =			NULL;
 	cub->fname =			NULL;
 	cub->screenshot = 		FALSE;

@@ -46,7 +46,6 @@
 
 typedef char	*t_str;
 typedef	int		t_bool;
-
 typedef struct	s_sprite
 {
 	int		x;
@@ -59,14 +58,12 @@ typedef struct	s_sprite
 	float	ang;
 	int		scale;
 }				t_sprite;
-
 typedef struct	s_color
 {
 	int r;
 	int g;
 	int b;
 } t_color;
-
 typedef struct	s_camera
 {
 	int			x;
@@ -78,7 +75,6 @@ typedef struct	s_camera
 	t_bool		mov_dir;
 	t_bool		rot_dir;
 }				t_camera;
-
 typedef struct	s_rdata
 {
 	float		hit[2];
@@ -86,7 +82,12 @@ typedef struct	s_rdata
 	float		step[2];
 	float		dist;
 }				t_rdata;
-
+typedef struct	s_wdata
+{
+	float		top;
+	float		bttm;
+	float		height;
+}				t_wdata;
 typedef struct	s_ray
 {
 	float		dist;
@@ -95,7 +96,6 @@ typedef struct	s_ray
 	t_bool		dir[4];
 	t_bool		hitver;
 }				t_ray;
-
 typedef struct	s_img
 {
 	t_str path;
@@ -107,13 +107,11 @@ typedef struct	s_img
 	int sl;
 	int end;
 }				t_img;
-
 typedef struct	s_map
 {
 	t_str	row;
 	int		columns;
 }				t_map;
-
 typedef struct s_cub
 {
 	void		*window;

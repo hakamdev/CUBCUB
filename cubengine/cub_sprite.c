@@ -29,18 +29,18 @@ void	render_sprite(t_cub *cub, int id, int offx, int offy)
 	int			i;
 	int			j;
 	int			clr_index;
-	const int	max = cub->cnvs.width * cub->cnvs.height;
+	const int	max = WIN_WIDTH * WIN_HEIGHT;
 
 	i = -1;
 	while (++i < cub->spr[id].scale)
 	{
-		if (offx + i < 0 || offx + i >= cub->cnvs.width ||
+		if (offx + i < 0 || offx + i >= WIN_WIDTH ||
 			cub->ray[offx + i].dist <= cub->spr[id].dist)
 			continue ;
 		j = -1;
 		while (++j < cub->spr[id].scale)
 		{
-			if (offy + j < 0 || offy + j >= cub->cnvs.width)
+			if (offy + j < 0 || offy + j >= WIN_WIDTH)
 				continue ;
 			clr_index = cub->txt[SPR].width * (cub->txt[SPR].width * j / cub->spr[id].scale) +
 												(cub->txt[SPR].width * i / cub->spr[id].scale);
@@ -54,7 +54,7 @@ void	render_sprite(t_cub *cub, int id, int offx, int offy)
 void	update_sprites(t_cub *cub)
 {
 	int			i;
-	const float	pplane_dist = cub->cnvs.width / 2.0F / tanf(RAD(FOV / 2.0F));;
+	const float	pplane_dist = WIN_WIDTH / 2.0F / tanf(RAD(FOV / 2.0F));;
 
 	i = -1;
 	while (++i < cub->sprs_nb)
@@ -63,9 +63,9 @@ void	update_sprites(t_cub *cub)
 		cub->spr[i].ang = atan2f(cub->spr[i].y - cub->cam.y, cub->spr[i].x - cub->cam.x);
 		cub->spr[i].ang = normalize_spr(cub, cub->spr[i].ang);
 		cub->spr[i].scale = (TILE_SIZE / (cub->spr[i].dist * pplane_dist));
-		cub->spr[i].offy = (cub->cnvs.height / 2.0F) - (cub->spr[i].scale / 2.0F);
-		cub->spr[i].offx = ((DEG(cub->spr[i].ang - DEG(cub->cam.ang))) * cub->cnvs.width) / TILE_SIZE +
-							((cub->cnvs.width / 2.0F) - (cub->spr[i].scale / 2.0F));
+		cub->spr[i].offy = (WIN_HEIGHT / 2.0F) - (cub->spr[i].scale / 2.0F);
+		cub->spr[i].offx = ((DEG(cub->spr[i].ang - DEG(cub->cam.ang))) * WIN_WIDTH) / TILE_SIZE +
+							((WIN_WIDTH / 2.0F) - (cub->spr[i].scale / 2.0F));
 	}
 	sort_sprite(cub);
 	i = -1;
