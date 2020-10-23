@@ -20,8 +20,6 @@ int		init_read(t_cub *cub)
 		return (exit_error(cub, "Error: Failed to close file after read!"));
 	if (IS_ERROR(check_map(cub)))
 		return (ERROR);
-	if (IS_ERROR(init_camera(cub)))
-		return (ERROR);
 	return (SUCCESS);
 }
 
@@ -63,6 +61,7 @@ int		init_cub(t_cub *cub)
 	cub->screenshot = 		FALSE;
 	cub->map = 				NULL;
 	cub->spr = 				NULL;
+	cub->ray = 				NULL;
 	init_cam(cub);
 	while (++i < 6)
 		cub->txt[i].path =	NULL;

@@ -1,11 +1,5 @@
 #include "../include/cubengine.h"
 
-int		clean(t_cub *cub, int retcode)
-{
-	/* TODO */
-	return (retcode);
-}
-
 int		main(int argc, char **argv)
 {
 	t_cub	cub;

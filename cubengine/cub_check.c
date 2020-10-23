@@ -62,13 +62,13 @@ int		check_args( t_cub *cub, int argc, const t_str *args)
 	if (argc < 2)
 		return (exit_error(cub, "Error: At least 1 argument is required!"));
 	if (argc > 3)
-		return(exit_error(cub, "Error: Too many arguments!"));
+		return (exit_error(cub, "Error: Too many arguments!"));
 	if (IS_ERROR(check_filename(args[1], EXT_CUB)))
-		return(exit_error(cub, "Error: File is not supported, provide .cub file!"));
+		return (exit_error(cub, "Error: File is not supported, provide .cub file!"));
 	cub->fname = args[1];
 	if (argc == 3 && IS_SUCESS(ft_strncmp(args[2], "--save", 6)))
 		cub->screenshot = TRUE;
 	else if (argc == 3)
-		return(exit_error(cub, "Error: 2nd arg is not recognized! provide --save instead for screenshot!"));
+		return (exit_error(cub, "Error: 2nd argument is not recognized!"));
 	return (SUCCESS);
 }
