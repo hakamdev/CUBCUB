@@ -1,11 +1,5 @@
 #include "../include/cubengine.h"
 
-t_bool	is_wall(t_cub *cub, int i, int j)
-{
-	return (value_at(cub, i, j) == '1' ||
-			value_at(cub, i, j) == ' ');
-}
-
 void	init_ray(t_ray *ray)
 {
 		ray->dir[SOUTH] = (ray->ang > 0.0F) && (ray->ang < M_PI);

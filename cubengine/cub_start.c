@@ -1,24 +1,7 @@
 #include "../include/cubengine.h"
 
-int		exit_error(t_cub *cub, t_str error_msg)
-{
-	if (error_msg)
-		cub->errno = error_msg;
-	return (ERROR);
-}
 
-int		check_filename(t_str filename, int ext)
-{
-	int		len;
-
-	len = ft_strlen(filename);
-	if (IS_SUCESS(ft_strncmp(&filename[len - 4], 
-					ext == EXT_CUB ? ".cub" : ".xpm", 6)))
-		return (SUCCESS);
-	return (ERROR);
-}
-
-int		init_args( t_cub *cub, int argc, const t_str *args)
+int		handle_args( t_cub *cub, int argc, const t_str *args)
 {
 	if (argc < 2)
 		return (exit_error(cub, "Error: At least 1 argument is required!"));
@@ -32,62 +15,6 @@ int		init_args( t_cub *cub, int argc, const t_str *args)
 	else if (argc == 3)
 		return(exit_error(cub, "Error: 2nd arg is not recognized! provide --save instead for screenshot!"));
 	return (SUCCESS);
-}
-
-int		init_game(t_cub *cub, int ac, int av)
-{
-	init_cub(cub);
-	if (IS_ERROR(init_args(cub, ac, av)))
-		return (ft_output(cub->errno, ERROR));
-	if (IS_ERROR(init_read(cub)))
-		return (ft_output(cub->errno, ERROR));
-	if (IS_ERROR(init_camera(cub)))
-		return (ft_output(cub->errno, ERROR));
-	if (IS_ERROR(init_rays(cub)))
-		return (ft_output(cub->errno, ERROR));
-	if (IS_ERROR(init_sprites(cub)))
-		return (ft_output(cub->errno, ERROR));
-	return (SUCCESS);
-}
-
-int		init_cub(t_cub *cub)
-{
-	int		i;
-
-	i =						-1;
-	cub->cam.x =			-1;
-	cub->cam.y =			-1;
-	cub->read_nb = 			0;
-	cub->sprs_nb = 			0;
-	WIN_WIDTH = 			0;
-	WIN_HEIGHT = 			0;
-	cub->errno =			NULL;
-	cub->fname =			NULL;
-	cub->screenshot = 		FALSE;
-	cub->map = 				NULL;
-	cub->spr = 				NULL;
-	cub->cam.mov_dir =		FALSE;
-	cub->cam.rot_dir =		FALSE;
-	cub->cam.mov_spd = 		(TILE_SIZE / 20.0F);
-	cub->cam.rot_spd =		RAD(1.0F);
-	while (++i < 6)
-		cub->txt[i].path =	NULL;
-	return (SUCCESS);
-}
-
-int		cub_game_loop(t_cub *cub) 
-{
-
-}
-
-int		key_pressed(int key, t_cub *cub)
-{
-
-}
-
-int		key_released(int key, t_cub *cub)
-{
-
 }
 
 int		clean(t_cub *cub, int retcode)

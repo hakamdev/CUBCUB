@@ -1,15 +1,5 @@
 #include "../include/cubengine.h"
 
-void	draw(t_img *canvas, int x, int y, int color)
-{
-    canvas->data[y * canvas->width + x] = color;
-}
-
-int		color_rgb_to_hex(t_color clr)
-{
-	return ((clr.r * POW(256)) + (clr.g * 256) + clr.b);
-}
-
 int		get_color_from_txt(t_cub *cub, t_wdata *stripe, int pos[2], int img)
 {
 	int			off[2];
