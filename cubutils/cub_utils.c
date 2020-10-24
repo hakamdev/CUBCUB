@@ -30,6 +30,10 @@ int		exit_error(t_cub *cub, t_str error_msg)
 
 void	draw(t_img *canvas, int x, int y, int color)
 {
+	// if (y < 0 || y >= canvas->height)
+	// 	return ;
+	// if (x < 0 || x >= canvas->width)
+	// 	return ;
     canvas->data[y * canvas->width + x] = color;
 }
 

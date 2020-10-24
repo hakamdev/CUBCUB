@@ -21,21 +21,17 @@ void update_rays(t_cub *cub)
 	int i;
 	float start_ang;
 	const float ang_step = FOV / WIN_WIDTH;
+	t_ray	*rrr;
 
 	i = -1;
 	start_ang = cub->cam.ang - (FOV / 2);
-	printf("\n");
-	printf("RAYS ==========\n");
 	while (++i < WIN_WIDTH)
 	{
 		cub->ray[i].ang = normalize_rad(start_ang);
 		update_ray(cub, &cub->ray[i]);
 		start_ang += ang_step;
-		//
-		printf("x %f -- y:%f\n", cub->ray[i].hit[X], cub->ray[i].hit[Y]);
-		//
+		rrr = &cub->ray[i];
 	}
-	printf("RAYS ==========\n");
 }
 
 void update_rendering_walls(t_cub *cub)
@@ -53,6 +49,8 @@ void update_rendering_walls(t_cub *cub)
 		strp.height = TILE_SIZE / cub->ray[i].dist * pplane_dist;
 		strp.top = ((float)WIN_HEIGHT / 2) - (strp.height / 2);	 /* TODO updown */
 		strp.bttm = ((float)WIN_HEIGHT / 2) + (strp.height / 2); /* TODO updown */
+		strp.top = strp.top < 0 ? 0 : strp.top;
+		strp.bttm = strp.bttm > WIN_HEIGHT ? WIN_HEIGHT : strp.bttm;
 		render_ciel_stripe(cub, 0, strp.top, i);
 		render_wall_stripe(cub, &strp, i);
 		render_flor_stripe(cub, strp.bttm, WIN_HEIGHT, i);
