@@ -98,6 +98,8 @@ int		handle_line(t_cub *cub, t_str line)
 		return (read_xpm(cub, line, WEST));
 	else if (IS_SUCESS(ft_strncmp(line, "EA", 2)))
 		return (read_xpm(cub, line, EAST));
+	else if (IS_SUCESS(ft_strncmp(line, "HU", 2)))
+		return (read_xpm(cub, line, HUD));
 	else if (IS_SUCESS(ft_strncmp(line, "S ", 2)))
 		return (read_xpm(cub, line, SPR));
 	else if (IS_SUCESS(ft_strncmp(line, "F ", 2)))

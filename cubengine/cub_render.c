@@ -18,8 +18,9 @@ void	render_sprite(t_cub *cub, int id, int offx, int offy)
 		{
 			if (offy + j < 0 || offy + j >= WIN_WIDTH)
 				continue ;
-			clr_index = cub->txt[SPR].width * (cub->txt[SPR].width * j / cub->spr[id].scale) +
-												(cub->txt[SPR].width * i / cub->spr[id].scale);
+			clr_index = cub->txt[SPR].width *
+						(cub->txt[SPR].width * j / cub->spr[id].scale) +
+						(cub->txt[SPR].width * i / cub->spr[id].scale);
 			clr_index = clr_index >= max ? max : clr_index;
 			if (cub->txt[SPR].data[clr_index] != 0x980088)
 				draw(&cub->cnvs, offx, offy, cub->txt[SPR].data[clr_index]);
@@ -29,8 +30,8 @@ void	render_sprite(t_cub *cub, int id, int offx, int offy)
 
 void    render_wall_stripe(t_cub *cub, t_wdata *stripe, int x)
 {
-	int		color;
 	int		y;
+	int		color;
 	int		pos[2];
 
 	y = stripe->top - 1;

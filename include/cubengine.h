@@ -15,14 +15,14 @@
 # define DEG(a)			 ((float)((a) * 180) / M_PI)
 # define IS_ERROR(f)	 ((f) == ERROR)
 # define IS_SUCESS(f)	 ((f) == SUCCESS)
-# define TILE_SIZE		 100
+# define TILE_SIZE		 64
 # define FOV			 RAD(60.0F)
 # define CUBTITLE		 "CUB3D BY HAKAM"
 # define TRUE			 1
 # define FALSE			 0
 # define ERROR			 -1
 # define SUCCESS		 0
-# define MAX_READ_CONFIG 8
+# define MAX_READ_CONFIG 9
 # define WIN_WIDTH		 cub->cnvs.width
 # define WIN_HEIGHT		 cub->cnvs.height
 
@@ -67,8 +67,8 @@ typedef struct	s_color
 } t_color;
 typedef struct	s_camera
 {
-	int			x;
-	int			y;
+	float		x;
+	float		y;
 	int			p[2];
 	float		ang;
 	float		mov_spd;
