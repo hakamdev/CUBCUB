@@ -56,4 +56,3 @@ int		add_sprite(t_cub *cub, int i, int j)
 	return (SUCCESS);
 }
 
-

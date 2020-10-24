@@ -49,15 +49,15 @@ typedef char	*t_str;
 typedef	int		t_bool;
 typedef struct	s_sprite
 {
-	int		x;
-	int		y;
+	float	x;
+	float	y;
 	float	offx;
 	float	offy;
 	int		p[2];
 	float	off[2];
 	float	dist;
 	float	ang;
-	int		scale;
+	float	scale;
 }				t_sprite;
 typedef struct	s_color
 {

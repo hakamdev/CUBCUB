@@ -8,22 +8,20 @@ void	render_sprite(t_cub *cub, int id, int offx, int offy)
 	const int	max = WIN_WIDTH * WIN_HEIGHT;
 
 	i = -1;
-	while (++i < cub->spr[id].scale)
+	while (++i < (int)cub->spr[id].scale)
 	{
 		if (offx + i < 0 || offx + i >= WIN_WIDTH ||
 			cub->ray[offx + i].dist <= cub->spr[id].dist)
 			continue ;
 		j = -1;
-		while (++j < cub->spr[id].scale)
+		while (++j < (int)cub->spr[id].scale)
 		{
 			if (offy + j < 0 || offy + j >= WIN_WIDTH)
 				continue ;
-			clr_index = cub->txt[SPR].width *
-						(cub->txt[SPR].width * j / cub->spr[id].scale) +
-						(cub->txt[SPR].width * i / cub->spr[id].scale);
+			clr_index = TILE_SIZE * (TILE_SIZE * j / (int)cub->spr[id].scale) + (TILE_SIZE * i / (int)cub->spr[id].scale);
 			clr_index = clr_index >= max ? max : clr_index;
 			if (cub->txt[SPR].data[clr_index] != 0x980088)
-				draw(&cub->cnvs, offx, offy, cub->txt[SPR].data[clr_index]);
+				draw(&cub->cnvs, offx + i, offy + j, cub->txt[SPR].data[clr_index]);
 		}
 	}
 }

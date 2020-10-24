@@ -31,7 +31,7 @@ int		event_game_loop(t_cub *cub)
 	update_camera(cub);
 	update_rays(cub);
 	update_rendering_walls(cub);
-	//update_rendering_sprites(cub);
+	update_rendering_sprites(cub);
 	//update_rendering_hud(cub, &cub->txt[HUD]);
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->cnvs.img, 0, 0);
 	return (SUCCESS);

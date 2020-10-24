@@ -60,7 +60,7 @@ void update_rendering_walls(t_cub *cub)
 void update_rendering_sprites(t_cub *cub)
 {
 	int i;
-	const float pplane_dist = WIN_WIDTH / 2.0F / tanf(RAD(FOV / 2.0F));
+	const float pplane_dist = (WIN_WIDTH / 2.0F) / tanf((FOV) / 2);
 
 	i = -1;
 	while (++i < cub->sprs_nb)
@@ -69,12 +69,17 @@ void update_rendering_sprites(t_cub *cub)
 		cub->spr[i].ang = atan2f(cub->spr[i].y - cub->cam.y,
 								 cub->spr[i].x - cub->cam.x);
 		cub->spr[i].ang = normalize_spr(cub, cub->spr[i].ang);
-		cub->spr[i].scale = (TILE_SIZE / (cub->spr[i].dist * pplane_dist));
-		cub->spr[i].offy = (WIN_HEIGHT / 2.0F) - (cub->spr[i].scale / 2.0F);
-		cub->spr[i].offx = ((DEG(cub->spr[i].ang - DEG(cub->cam.ang))) * WIN_WIDTH) / TILE_SIZE + ((WIN_WIDTH / 2.0F) - (cub->spr[i].scale / 2.0F));
+		cub->spr[i].scale = (TILE_SIZE / cub->spr[i].dist * pplane_dist);
+		cub->spr[i].offy = (WIN_HEIGHT / 2.0F) - (cub->spr[i].scale / 2);
+		cub->spr[i].offx = ((DEG(cub->spr[i].ang) - DEG(cub->cam.ang)) * WIN_WIDTH) / TILE_SIZE + ((WIN_WIDTH / 2.0F) - (cub->spr[i].scale / 2));
 	}
 	sort_sprites(cub);
 	i = -1;
+	// printf("\n");
+	// printf("pp: %f\n", pplane_dist);
+	//printf("spr0: :: offx: %f :: offy: %f\n", cub->spr[0].offx, cub->spr[0].offy);
+	// printf("spr1: :: dst: %f :: scl: %f\n", cub->spr[1].dist, cub->spr[1].scale);
+	// printf("spr2: :: dst: %f :: scl: %f\n", cub->spr[2].dist, cub->spr[2].scale);
 	while (++i < cub->sprs_nb)
 		render_sprite(cub, i, cub->spr[i].offx, cub->spr[i].offy);
 }
