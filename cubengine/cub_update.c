@@ -6,9 +6,9 @@ void update_camera(t_cub *cub)
 	float next_y;
 
 	next_x = cub->cam.x + cub->cam.mov_spd *
-							  cub->cam.mov_dir * cosf(cub->cam.ang /* TODO updown */);
+							  cub->cam.mov_dir * cosf(cub->cam.ang + cub->cam.side_ang);
 	next_y = cub->cam.y + cub->cam.mov_spd *
-							  cub->cam.mov_dir * sinf(cub->cam.ang /* TODO updown */);
+							  cub->cam.mov_dir * sinf(cub->cam.ang + cub->cam.side_ang);
 	cub->cam.ang += (cub->cam.rot_spd * cub->cam.rot_dir);
 	if (!is_wall(cub, next_x, cub->cam.y) && !is_sprite(cub, next_x, cub->cam.y))
 		cub->cam.x = next_x;
@@ -78,7 +78,6 @@ void update_rendering_sprites(t_cub *cub)
 	i = -1;
 	while (++i < cub->sprs_nb)
 		render_sprite(cub, i, cub->spr[i].offx, cub->spr[i].offy);
-	update_rendering_hud(cub, &cub->txt[HUD]);
 }
 
 void update_rendering_hud(t_cub *cub, t_img *hud)

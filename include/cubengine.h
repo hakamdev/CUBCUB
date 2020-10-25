@@ -71,6 +71,7 @@ typedef struct	s_camera
 	float		y;
 	int			p[2];
 	float		ang;
+	float		side_ang;
 	float		mov_spd;
 	float		rot_spd;
 	int			mov_dir;

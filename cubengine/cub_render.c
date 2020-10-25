@@ -13,21 +13,21 @@ void	render_sprite(t_cub *cub, int id, int offx, int offy)
 	x = -1;
 	while (++x < (int)cub->spr[id].scale)
 	{
-		if (offx + x < 0 || offx + x >= WIN_WIDTH ||
-			cub->ray[offx + x].dist <= cub->spr[id].dist)
+		if (offx + x < 0 || offx + x >= WIN_WIDTH)
+			continue ;
+		if (cub->ray[offx + x].dist <= cub->spr[id].dist)
 			continue ;
 		y = -1;
 		rx = (x * ratio);
 		while (++y < (int)cub->spr[id].scale)
 		{
-			if (offy + y < 0 || offy + y >= WIN_WIDTH)
+			if (offy + y < 0 || offy + y >= WIN_HEIGHT)
 				continue ;
 			ry = (y * ratio);
 			clrindex = (ry * cub->txt[SPR].width) + rx;
 			if (cub->txt[SPR].data[clrindex] != 0x980088)
 				draw(&cub->cnvs, offx + x, offy + y, cub->txt[SPR].data[clrindex]);
 		}
-
 	}
 }
 

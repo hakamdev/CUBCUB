@@ -40,8 +40,9 @@ int		init_cam(t_cub *cub)
 {
 	cub->cam.mov_dir =		0;
 	cub->cam.rot_dir =		0;
+	cub->cam.side_ang = 	0.0F;
 	cub->cam.mov_spd = 		(TILE_SIZE / 20.0F);
-	cub->cam.rot_spd =		RAD(0.2F);
+	cub->cam.rot_spd =		RAD(1.2F);
 	return (SUCCESS);
 }
 
