@@ -32,6 +32,7 @@
 # define EAST	3
 # define SPR	4
 # define HUD	5
+# define SPLSH	6
 
 # define CIEL  	0
 # define FLOOR 	1
@@ -116,7 +117,7 @@ typedef struct	s_map
 	t_str	row;
 	int		columns;
 }				t_map;
-typedef struct s_cub
+typedef struct	s_cub
 {
 	void		*window;
 	void		*mlx;
@@ -130,11 +131,12 @@ typedef struct s_cub
 	t_ray		*ray;
 	t_camera	cam;
 	t_img		cnvs;
-	t_img		txt[6];
+	t_img		txt[7];
 	t_color		color[2];
 	t_bool		screenshot;
 }				t_cub;
 
+t_bool			g_end_splsh;
 /* FUNCTIONS */
 int		init_camera(t_cub *cub);
 t_bool	is_camera(t_cub *cub, int i, int j);
@@ -214,5 +216,8 @@ size_t	ft_strlen(const char *s);
 t_bool	ft_strnchar(const char *str, char c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strsub(char **s, unsigned int start, size_t n);
+
+
+int		init_splash_screen(t_cub *cub);
 
 #endif

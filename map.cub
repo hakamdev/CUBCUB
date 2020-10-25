@@ -5,7 +5,7 @@ SO ./cubassets/redbrick.xpm
 WE ./cubassets/stone.xpm
 EA ./cubassets/mossy.xpm
 HU ./cubassets/hud3.xpm
-S ./cubassets/sp3.xpm
+S ./cubassets/sp1.xpm
 F 86,12,22
 C 10,151,176
 

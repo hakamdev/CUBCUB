@@ -14,6 +14,7 @@ int		init_textures_extra(t_cub *cub)
 		&cub->txt[HUD].bpp, &cub->txt[HUD].sl, &cub->txt[HUD].end);
 	cub->txt[HUD].vratio = (float)cub->txt[HUD].height / WIN_HEIGHT;
 	cub->txt[HUD].hratio = (float)cub->txt[HUD].width / WIN_WIDTH;
+	//init_splash_screen(cub);
 	return (SUCCESS);
 }
 

@@ -95,7 +95,9 @@ void update_rendering_hud(t_cub *cub, t_img *hud)
 		rx = 0;
 		while (x < WIN_WIDTH && rx < hud->width)
 		{
-			if (hud->data[(ry * hud->width) + rx] != 0x527052)
+			if (g_end_splsh && hud->data[(ry * hud->width) + rx] != 0x527052)
+				draw(&cub->cnvs, x, y, hud->data[(ry * hud->width) + rx]);
+			if (!g_end_splsh)
 				draw(&cub->cnvs, x, y, hud->data[(ry * hud->width) + rx]);
 			rx = ++x * hud->hratio;
 		}
