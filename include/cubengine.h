@@ -8,6 +8,7 @@
 
 // Test
 # include <stdio.h>
+# include <string.h>
 //
 
 # define POW(a)			 ((a) * (a))
@@ -48,6 +49,32 @@
 
 typedef char	*t_str;
 typedef	int		t_bool;
+typedef struct	s_header
+{
+	unsigned char type[2];
+	unsigned int filesize;
+	unsigned int reserved;
+	unsigned int offset;
+}				t_header;
+typedef struct	s_bmpinfo
+{
+	unsigned int headersize;
+	unsigned int width;
+	unsigned int height;
+	unsigned short  planes;
+	unsigned short  bpp;
+	unsigned int compression;
+	unsigned int imgsize;
+	unsigned int ypixelpmeter;
+	unsigned int xpixelpmeter;
+	unsigned int numclrpalette;
+	unsigned int mostimpclr;
+}				t_bmpinfo;
+typedef struct	s_bmp
+{
+	t_header	header;
+	t_bmpinfo	info;
+}				t_bmp;
 typedef struct	s_sprite
 {
 	float	x;
@@ -137,6 +164,7 @@ typedef struct	s_cub
 }				t_cub;
 
 t_bool			g_end_splsh;
+int				g_padding;
 /* FUNCTIONS */
 int		init_camera(t_cub *cub);
 t_bool	is_camera(t_cub *cub, int i, int j);
@@ -216,8 +244,6 @@ size_t	ft_strlen(const char *s);
 t_bool	ft_strnchar(const char *str, char c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strsub(char **s, unsigned int start, size_t n);
-
-
 int		init_splash_screen(t_cub *cub);
 
 #endif

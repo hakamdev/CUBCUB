@@ -8,13 +8,19 @@ int		init_textures_extra(t_cub *cub)
 	if (!(cub->txt[HUD].img = mlx_xpm_file_to_image(cub->mlx,
 	cub->txt[HUD].path, &cub->txt[HUD].width, &cub->txt[HUD].height)))
 		return (exit_error(cub, "Error: XPM file is not valid or doesn't exist!"));
+	if (!(cub->txt[SPLSH].img = mlx_xpm_file_to_image(cub->mlx,
+	"./cubassets/splash.xpm", &cub->txt[SPLSH].width, &cub->txt[SPLSH].height)))
+		return (exit_error(cub, "Error: XPM file is not valid or doesn't exist!"));
 	cub->txt[SPR].data = (int *)mlx_get_data_addr(cub->txt[SPR].img,
 		&cub->txt[SPR].bpp, &cub->txt[SPR].sl, &cub->txt[SPR].end);
 	cub->txt[HUD].data = (int *)mlx_get_data_addr(cub->txt[HUD].img,
 		&cub->txt[HUD].bpp, &cub->txt[HUD].sl, &cub->txt[HUD].end);
+	cub->txt[SPLSH].data = (int *)mlx_get_data_addr(cub->txt[SPLSH].img,
+		&cub->txt[SPLSH].bpp, &cub->txt[SPLSH].sl, &cub->txt[SPLSH].end);
+	cub->txt[SPLSH].vratio = (float)cub->txt[SPLSH].height / WIN_HEIGHT;
+	cub->txt[SPLSH].hratio = (float)cub->txt[SPLSH].width / WIN_WIDTH;
 	cub->txt[HUD].vratio = (float)cub->txt[HUD].height / WIN_HEIGHT;
 	cub->txt[HUD].hratio = (float)cub->txt[HUD].width / WIN_WIDTH;
-	//init_splash_screen(cub);
 	return (SUCCESS);
 }
 
