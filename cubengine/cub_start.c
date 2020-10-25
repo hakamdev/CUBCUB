@@ -9,9 +9,6 @@ int		update_splash(t_cub *cub)
 
 int		init_splash_screen(t_cub *cub)
 {
-	long long		i;
-	const long long	frames_nb = INT32_MAX;
-
 	if (!(cub->txt[SPLSH].img = mlx_xpm_file_to_image(cub->mlx, "./cubassets/splash.xpm", &cub->txt[SPLSH].width, &cub->txt[SPLSH].height)))
 		return (ft_output(cub->errno, exit_error(cub, "Error: Failed to init splash image!")));
 	cub->txt[SPLSH].data = (int *)mlx_get_data_addr(cub->txt[SPLSH].img, &cub->txt[SPLSH].bpp, &cub->txt[SPLSH].sl, &cub->txt[SPLSH].end);
