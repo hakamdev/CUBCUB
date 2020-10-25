@@ -10,7 +10,7 @@ void	init_ray(t_ray *ray)
 
 void	hori_collision(t_cub *cub, t_rdata *h, t_ray *r)
 {
-	h->dist = INT32_MAX;
+	h->dist = 1000000;//INT32_MAX;
 	h->inter[Y] = floorf(cub->cam.y / (float)TILE_SIZE) * TILE_SIZE;
 	h->inter[Y] += r->dir[SOUTH] ? TILE_SIZE : 0;
 	h->inter[X] = cub->cam.x + (h->inter[Y] - cub->cam.y) / tanf(r->ang);
@@ -35,7 +35,7 @@ void	hori_collision(t_cub *cub, t_rdata *h, t_ray *r)
 
 void	vert_collision(t_cub *cub, t_rdata *v, t_ray *r)
 {
-	v->dist = INT32_MAX;
+	v->dist = 1000000;//INT32_MAX;
 	v->inter[X] = floorf(cub->cam.x / (float)TILE_SIZE) * TILE_SIZE;
 	v->inter[X] += r->dir[EAST] ? TILE_SIZE : 0;
 	v->inter[Y] = cub->cam.y + (v->inter[X] - cub->cam.x) * tanf(r->ang);

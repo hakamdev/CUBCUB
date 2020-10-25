@@ -41,7 +41,7 @@ int		init_cam(t_cub *cub)
 	cub->cam.mov_dir =		0;
 	cub->cam.rot_dir =		0;
 	cub->cam.mov_spd = 		(TILE_SIZE / 20.0F);
-	cub->cam.rot_spd =		RAD(1.0F);
+	cub->cam.rot_spd =		RAD(0.2F);
 	return (SUCCESS);
 }
 

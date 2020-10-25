@@ -2,27 +2,43 @@
 
 int		event_key_pressed(int key, t_cub *cub)
 {
-	if (key == 13)
+	if (key == 119)
 		cub->cam.mov_dir = 1;
-	if (key == 1)
+	if (key == 115)
 		cub->cam.mov_dir = -1;
-	if (key == 124)
+	if (key == 65363)
 		cub->cam.rot_dir = 1;
-	if (key == 123)
+	if (key == 65361)
 		cub->cam.rot_dir = -1;
+	// if (key == 13)
+	// 	cub->cam.mov_dir = 1;
+	// if (key == 1)
+	// 	cub->cam.mov_dir = -1;
+	// if (key == 124)
+	// 	cub->cam.rot_dir = 1;
+	// if (key == 123)
+	// 	cub->cam.rot_dir = -1;
 	return (0);
 }
 
 int		event_key_released(int key, t_cub *cub)
 {
-	if (key == 13)
+	if (key == 119)
 		cub->cam.mov_dir = 0;
-	if (key == 1)
+	if (key == 115)
 		cub->cam.mov_dir = 0;
-	if (key == 124)
+	if (key == 65363)
 		cub->cam.rot_dir = 0;
-	if (key == 123)
+	if (key == 65361)
 		cub->cam.rot_dir = 0;
+	// if (key == 13)
+	// 	cub->cam.mov_dir = 0;
+	// if (key == 1)
+	// 	cub->cam.mov_dir = 0;
+	// if (key == 124)
+	// 	cub->cam.rot_dir = 0;
+	// if (key == 123)
+	// 	cub->cam.rot_dir = 0;
 	return (0);
 }
 
