@@ -85,4 +85,3 @@ int		init_rays(t_cub *cub)
 	}
 	return (SUCCESS);
 }
-

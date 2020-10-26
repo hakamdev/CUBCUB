@@ -7,30 +7,35 @@ int		take_screenshot(t_cub *cub)
 	t_bmp *bmp;
 
 	
-	if (!(fd = open("screenshot.bmp", O_WRONLY | O_APPEND)))
-		return (ft_output(cub->errno, exit_error(cub, "Nood 3la slaamtek!")));
+	// if (!(fd = open("ss.bmp", O_CREAT | O_RDWR | O_APPEND)))
+	// 	return (ft_output(cub->errno, exit_error(cub, "Nood 3la slaamtek!")));
 	
+	FILE *fp = fopen("sss.bmp", "wb+");
 	if (!(bmp = (t_bmp *)calloc(1, sizeof(t_bmp))))
 		return (ft_output(cub->errno, exit_error(cub, "Nood 3la slaamtek!")));
 
-	unsigned char *pixelbuffer = (unsigned char *)malloc((WIN_HEIGHT*WIN_WIDTH*24/8));
-
+	uint8_t *pixelbuffer = (uint8_t *)malloc(PIXELBYTESIZE);
 	bmp->header.type[0] = 'B'; bmp->header.type[1] = 'M';
-	bmp->header.filesize = (WIN_HEIGHT*WIN_WIDTH*24/8)+sizeof(bmp);
+	bmp->header.filesize = FILESIZE;
 	bmp->header.offset = sizeof(bmp);
 	bmp->info.headersize = sizeof(t_bmpinfo);
 	bmp->info.width = WIN_WIDTH;
 	bmp->info.height = WIN_HEIGHT;
-	bmp->info.planes = 1;
-	bmp->info.bpp = 24;
-	bmp->info.compression = 0;
-	bmp->info.imgsize = (WIN_HEIGHT*WIN_WIDTH*24/8);
-	bmp->info.ypixelpmeter = 0x130B;
-	bmp->info.xpixelpmeter = 0x130B;
+	bmp->info.planes = PLANES;
+	bmp->info.bpp = BITSPERPIXEL;
+	bmp->info.compression = COMPRESSION;
+	bmp->info.imgsize = PIXELBYTESIZE;
+	bmp->info.ypixelpmeter = YPIXELPERMETER;
+	bmp->info.xpixelpmeter = XPIXELPERMETER;
 	bmp->info.numclrpalette = 0;
-	write(fd, bmp, sizeof(bmp));
-	memset(pixelbuffer, 0xFF, (WIN_HEIGHT*WIN_WIDTH*24/8));
-	write(fd, pixelbuffer, (WIN_HEIGHT*WIN_WIDTH*24/8));
-	close(fd);
+	bmp->info.mostimpclr = 0;
+	//write(fd, bmp, sizeof(bmp));
+	fwrite(bmp, 1, sizeof(t_bmp), fp);
+	memset(pixelbuffer, 0x0000FF, PIXELBYTESIZE);
+	fwrite(pixelbuffer, 1, PIXELBYTESIZE, fp);
+	//write(fd, pixelbuffer, PIXELBYTESIZE);
+	fclose(fp);
+	free(bmp);
+	free(pixelbuffer);
 	return (SUCCESS);
 }

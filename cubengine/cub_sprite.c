@@ -55,4 +55,3 @@ int		add_sprite(t_cub *cub, int i, int j)
     cub->spr[index] = tmp_spr;
 	return (SUCCESS);
 }
-

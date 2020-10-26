@@ -35,6 +35,14 @@
 # define HUD	5
 # define SPLSH	6
 
+# define A 0
+# define B 1
+# define C 2
+# define D 3
+# define E 4
+# define F 5
+# define G 6
+
 # define CIEL  	0
 # define FLOOR 	1
 
@@ -47,29 +55,40 @@
 # define EV_KEY_PRESSED		2
 # define EV_KEY_RELEASED	3
 
+//
+# define BITSPERPIXEL 24
+# define PLANES 1
+# define COMPRESSION 0
+# define PIXELBYTESIZE (WIN_WIDTH * WIN_HEIGHT * BITSPERPIXEL / 8)
+# define FILESIZE (PIXELBYTESIZE + sizeof(bmp))
+# define XPIXELPERMETER 0X130B
+# define YPIXELPERMETER 0X130B
+# define PIXEL 0XFF
+//
+
 typedef char	*t_str;
 typedef	int		t_bool;
 typedef struct	s_header
 {
-	unsigned char type[2];
-	unsigned int filesize;
-	unsigned int reserved;
-	unsigned int offset;
-}				t_header;
+	char 	type[2];
+	uint32_t filesize;
+	uint32_t reserved;
+	uint32_t offset;
+} __attribute__((packed)) t_header;
 typedef struct	s_bmpinfo
 {
-	unsigned int headersize;
-	unsigned int width;
-	unsigned int height;
-	unsigned short  planes;
-	unsigned short  bpp;
-	unsigned int compression;
-	unsigned int imgsize;
-	unsigned int ypixelpmeter;
-	unsigned int xpixelpmeter;
-	unsigned int numclrpalette;
-	unsigned int mostimpclr;
-}				t_bmpinfo;
+	uint32_t headersize;
+	uint32_t width;
+	uint32_t height;
+	uint16_t  planes;
+	uint16_t  bpp;
+	uint32_t compression;
+	uint32_t imgsize;
+	uint32_t xpixelpmeter;
+	uint32_t ypixelpmeter;
+	uint32_t numclrpalette;
+	uint32_t mostimpclr;
+} __attribute__((packed)) t_bmpinfo;
 typedef struct	s_bmp
 {
 	t_header	header;
@@ -144,6 +163,18 @@ typedef struct	s_map
 	t_str	row;
 	int		columns;
 }				t_map;
+typedef struct	s_checkpnt
+{
+	char		name;
+	float		x;
+	float		y;
+}				t_checkpnt;
+typedef struct	s_level
+{
+	t_checkpnt  start;
+	t_checkpnt	end;
+}				t_level;
+
 typedef struct	s_cub
 {
 	void		*window;
@@ -151,6 +182,8 @@ typedef struct	s_cub
 	int			rows_nb;
 	int			sprs_nb;
 	int			read_nb;
+	int			cp_nb;
+	int			level_nb;
 	t_str		fname;
 	t_str		errno;
 	t_map		*map;
@@ -161,11 +194,13 @@ typedef struct	s_cub
 	t_img		txt[7];
 	t_color		color[2];
 	t_bool		screenshot;
+	t_level		level[4];
+	t_checkpnt	checkps[7];
 }				t_cub;
 
 t_bool			g_end_splsh;
 int				g_padding;
-/* FUNCTIONS */
+
 int		init_camera(t_cub *cub);
 t_bool	is_camera(t_cub *cub, int i, int j);
 int		set_camera_rotation(t_cub *cub, char direction);
