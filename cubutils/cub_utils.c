@@ -40,6 +40,11 @@ char	value_at(t_cub *cub, int x, int y)
 	return (' ');
 }
 
+char	value_at_pos(t_cub *cub, int x, int y)
+{
+	return (value_at(cub, floorf(x / TILE_SIZE), floorf(y / TILE_SIZE)));
+}
+
 t_bool	is_wall(t_cub *cub, float x, float y)
 {
 	const int	i = x / TILE_SIZE;

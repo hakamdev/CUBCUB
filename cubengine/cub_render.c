@@ -1,6 +1,6 @@
 #include "../include/cubengine.h"
 
-void	render_sprite(t_cub *cub, int id, int offx, int offy)
+void	render_sprite(t_cub *cub, int id, int off[2], int spr)
 {
 	int			x;
 	int			y;
@@ -12,23 +12,53 @@ void	render_sprite(t_cub *cub, int id, int offx, int offy)
 	x = -1;
 	while (++x < (int)cub->spr[id].scale)
 	{
-		if (offx + x < 0 || offx + x >= WIN_WIDTH)
+		if (off[X] + x < 0 || off[X] + x >= WIN_WIDTH)
 			continue ;
-		if (cub->ray[offx + x].dist <= cub->spr[id].dist)
+		if (cub->ray[off[X] + x].dist <= cub->spr[id].dist)
 			continue ;
 		y = -1;
 		rx = (x * ratio);
 		while (++y < (int)cub->spr[id].scale)
 		{
-			if (offy + y < 0 || offy + y >= WIN_HEIGHT)
+			if (off[Y] + y < 0 || off[Y] + y >= WIN_HEIGHT)
 				continue ;
 			ry = (y * ratio);
-			clrindex = (ry * cub->txt[SPR].width) + rx;
-			if (cub->txt[SPR].data[clrindex] != cub->txt[SPR].data[0])
-				draw(&cub->cnvs, offx + x, offy + y, cub->txt[SPR].data[clrindex]);
+			clrindex = (ry * cub->txt[spr].width) + rx;
+			if (cub->txt[spr].data[clrindex] != cub->txt[spr].data[0])
+				draw(&cub->cnvs, off[X] + x, off[Y] + y, cub->txt[spr].data[clrindex]);
 		}
 	}
 }
+
+// void	render_sprite(t_cub *cub, int id, int offx, int offy)
+// {
+// 	int			x;
+// 	int			y;
+// 	int			rx;
+// 	int			ry;
+// 	int			clrindex;
+// 	const float	ratio = cub->txt[SPR].width / cub->spr[id].scale;
+
+// 	x = -1;
+// 	while (++x < (int)cub->spr[id].scale)
+// 	{
+// 		if (offx + x < 0 || offx + x >= WIN_WIDTH)
+// 			continue ;
+// 		if (cub->ray[offx + x].dist <= cub->spr[id].dist)
+// 			continue ;
+// 		y = -1;
+// 		rx = (x * ratio);
+// 		while (++y < (int)cub->spr[id].scale)
+// 		{
+// 			if (offy + y < 0 || offy + y >= WIN_HEIGHT)
+// 				continue ;
+// 			ry = (y * ratio);
+// 			clrindex = (ry * cub->txt[SPR].width) + rx;
+// 			if (cub->txt[SPR].data[clrindex] != cub->txt[SPR].data[0])
+// 				draw(&cub->cnvs, offx + x, offy + y, cub->txt[SPR].data[clrindex]);
+// 		}
+// 	}
+// }
 
 void    render_wall_stripe(t_cub *cub, t_wdata *stripe, int x)
 {

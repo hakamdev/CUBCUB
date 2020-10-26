@@ -61,12 +61,22 @@ void update_rendering_walls(t_cub *cub)
 	}
 }
 
+int	get_sprite_type(t_cub *cub, int x, int y)
+{
+	const char c = value_at_pos(cub, x, y);
+	if (c >= 'a' && c <= 't')
+		return (CP);
+	return (SPR);
+}
+
 void update_rendering_sprites(t_cub *cub)
 {
 	int i;
 	const float pplane_dist = (WIN_WIDTH / 2.0F) / tanf((FOV) / 2);
 
 	i = -1;
+	int	off[2];
+
 	while (++i < cub->sprs_nb)
 	{
 		cub->spr[i].dist = get_distance(cub, cub->spr[i].x, cub->spr[i].y);
@@ -81,7 +91,11 @@ void update_rendering_sprites(t_cub *cub)
 	sort_sprites(cub);
 	i = -1;
 	while (++i < cub->sprs_nb)
-		render_sprite(cub, i, cub->spr[i].offx, cub->spr[i].offy);
+	{
+		off[X] = cub->spr[i].offx;
+		off[Y] = cub->spr[i].offy;
+		render_sprite(cub, i, off, get_sprite_type(cub, cub->spr[i].x, cub->spr[i].y));
+	}
 }
 
 void update_rendering_hud(t_cub *cub, t_img *hud)

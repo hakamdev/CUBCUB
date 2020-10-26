@@ -52,27 +52,15 @@ int		event_key_released(int key, t_cub *cub)
 
 int		event_game_loop(t_cub *cub)
 {
-	int		index = SPLSH;
+	g_indx_splsh = SPLSH;
 	update_camera(cub);
 	update_rays(cub);
 	update_rendering_walls(cub);
 	update_rendering_sprites(cub);
 	if (g_end_splsh)
-		index = HUD;
-	update_rendering_hud(cub, &cub->txt[index]);
+		g_indx_splsh = HUD;
+	update_rendering_hud(cub, &cub->txt[g_indx_splsh]);
+	update_level(cub);
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->cnvs.img, 0, 0);
-	if (cub->cam.x >= 64.0F && cub->cam.x <= 128.0F && cub->cam.y >= 768.0F && cub->cam.y <= 832.0F)
-	{
-		cub->cam.x = 96.0F; cub->cam.y = 1024.0F;
-		set_camera_rotation(cub, 'S');
-		g_end_splsh = FALSE;
-	}
-	if (cub->cam.x >= 64.0F && cub->cam.x <= 128.0F && cub->cam.y >= 1664.0F && cub->cam.y <= 1728.0F)
-	{
-		cub->cam.x = 96.0F; cub->cam.y = 96.0F;
-		set_camera_rotation(cub, 'S');
-		g_end_splsh = FALSE;
-	}
-	// y768 - y832 x64 - x128 96 
 	return (SUCCESS);
 }

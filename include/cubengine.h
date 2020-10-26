@@ -32,8 +32,9 @@
 # define WEST	2
 # define EAST	3
 # define SPR	4
-# define HUD	5
-# define SPLSH	6
+# define CP		5
+# define HUD	6
+# define SPLSH	7
 
 # define A 0
 # define B 1
@@ -174,6 +175,15 @@ typedef struct	s_level
 	t_checkpnt  start;
 	t_checkpnt	end;
 }				t_level;
+typedef struct	s_lvldata
+{
+	char		current_cp;
+	char		last_cp;
+	int			cp_nb;
+	int			lvl_nb;
+	t_level		level[10];
+	t_checkpnt	checkps[20];
+}				t_lvldata;
 
 typedef struct	s_cub
 {
@@ -184,6 +194,9 @@ typedef struct	s_cub
 	int			read_nb;
 	int			cp_nb;
 	int			level_nb;
+	int			currlvl;
+	int			currcp;
+	char		lastcpn;
 	t_str		fname;
 	t_str		errno;
 	t_map		*map;
@@ -191,15 +204,15 @@ typedef struct	s_cub
 	t_ray		*ray;
 	t_camera	cam;
 	t_img		cnvs;
-	t_img		txt[7];
+	t_img		txt[8];
 	t_color		color[2];
 	t_bool		screenshot;
-	t_level		level[4];
-	t_checkpnt	checkps[7];
+	t_level		level[10];
+	t_checkpnt	checkps[20];
 }				t_cub;
 
 t_bool			g_end_splsh;
-int				g_padding;
+int				g_indx_splsh;
 
 int		init_camera(t_cub *cub);
 t_bool	is_camera(t_cub *cub, int i, int j);
@@ -236,7 +249,7 @@ int		read_color(t_cub *cub, t_str line, int clr_index);
 int		read_map(t_cub *cub, t_str line);
 int		handle_line(t_cub *cub, t_str line);
 //
-void	render_sprite(t_cub *cub, int id, int offx, int offy);
+//void	render_sprite(t_cub *cub, int id, int offx, int offy);
 void    render_wall_stripe(t_cub *cub, t_wdata *stripe, int x);
 void	render_ciel_stripe(t_cub *cub, int ystart, int yend, int x);
 void	render_flor_stripe(t_cub *cub, int ystart, int yend, int x);
@@ -280,5 +293,12 @@ t_bool	ft_strnchar(const char *str, char c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strsub(char **s, unsigned int start, size_t n);
 int		init_splash_screen(t_cub *cub);
+
+int		init_checkpoints(t_cub *cub);
+int		init_levels(t_cub *cub);
+int		update_level(t_cub *cub);
+
+void	render_sprite(t_cub *cub, int id, int off[2], int spr);
+char	value_at_pos(t_cub *cub, int x, int y);
 
 #endif

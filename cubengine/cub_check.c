@@ -50,7 +50,7 @@ int		check_map(t_cub *cub)
 			if (ft_strnchar("02NEWS", (value_at(cub, i, j)))
 				&& IS_ERROR(check_map_element(cub, i, j)))
 				return (exit_error(cub, "Error: Map is not properly closed!"));
-			else if (!ft_strnchar("012NEWS ", value_at(cub, i, j)))
+			else if (!ft_strnchar("012NEWS abcdefghijklmnopqrst", value_at(cub, i, j)))
 				return (exit_error(cub, "Error: Fobidden character exist in map!"));
 		}
 	}
