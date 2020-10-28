@@ -7,10 +7,10 @@ void update_camera(t_cub *cub)
 
 	next_x = cub->cam.x + cub->cam.mov_spd *
 				cub->cam.mov_dir *
-				cosf(cub->cam.ang + cub->cam.side_ang);
+				cosf(cub->cam.ang + cub->cam.side_ang) * 20;
 	next_y = cub->cam.y + cub->cam.mov_spd *
 				cub->cam.mov_dir *
-				sinf(cub->cam.ang + cub->cam.side_ang);
+				sinf(cub->cam.ang + cub->cam.side_ang) * 20;
 	cub->cam.ang += (cub->cam.rot_spd * cub->cam.rot_dir);
 	if (!is_wall(cub, next_x, cub->cam.y) &&
 		!is_sprite(cub, next_x, cub->cam.y))
@@ -42,11 +42,10 @@ void update_rendering_walls(t_cub *cub)
 {
 	int i;
 	int j;
-	float pplane_dist;
 	t_wdata strp;
+	const float pplane_dist = (WIN_WIDTH / 2.0F) / tanf((FOV) / 2);
 
 	i = -1;
-	pplane_dist = (WIN_WIDTH / 2.0F) / tanf((FOV) / 2);
 	while (++i < WIN_WIDTH)
 	{
 		cub->ray[i].dist *= cosf(cub->ray[i].ang - cub->cam.ang);
@@ -72,7 +71,7 @@ int	get_sprite_type(t_cub *cub, int x, int y)
 void update_rendering_sprites(t_cub *cub)
 {
 	int i;
-	const float pplane_dist = (WIN_WIDTH / 2.0F) / tanf((FOV) / 2);
+	const float pplane_dist = (WIN_WIDTH / 2.0F) / tanf((FOV) / 2) - 10;
 
 	i = -1;
 	int	off[2];

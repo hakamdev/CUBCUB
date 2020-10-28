@@ -17,7 +17,7 @@ void	render_sprite(t_cub *cub, int id, int off[2], int spr)
 		if (cub->ray[off[X] + x].dist <= cub->spr[id].dist)
 			continue ;
 		y = -1;
-		rx = (x * ratio);
+		// rx = (x * ratio);
 		while (++y < (int)cub->spr[id].scale)
 		{
 			if (off[Y] + y < 0 || off[Y] + y >= WIN_HEIGHT)

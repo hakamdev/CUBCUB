@@ -21,7 +21,7 @@ void	hori_collision(t_cub *cub, t_rdata *h, t_ray *r)
 	h->step[X] *= (r->dir[EAST] && h->step[X] < 0.0F) ? -1 : 1;
 	h->hit[X] = h->inter[X];
 	h->hit[Y] = h->inter[Y];
-	while (h->hit[Y] >= 0.0F && h->hit[X] >= 0.0F)
+	while (1/*h->hit[Y] >= 0.0F && h->hit[X] >= 0.0F*/)
 	{
 		if (is_wall(cub, h->hit[X], (r->dir[NORTH] ? h->hit[Y] - 1 : h->hit[Y])))
 		{
@@ -46,7 +46,7 @@ void	vert_collision(t_cub *cub, t_rdata *v, t_ray *r)
 	v->step[Y] *= (r->dir[SOUTH] && v->step[Y] < 0.0F) ? -1 : 1;
 	v->hit[Y] = v->inter[Y];
 	v->hit[X] = v->inter[X];
-	while (v->hit[Y] >= 0.0F && v->hit[X] >= 0.0F)
+	while (1/*v->hit[Y] >= 0.0F && v->hit[X] >= 0.0F*/)
 	{
 		if (is_wall(cub, (r->dir[WEST] ? v->hit[X] - 1 : v->hit[X]), v->hit[Y]))
 		{

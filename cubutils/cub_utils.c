@@ -95,4 +95,3 @@ int		get_color_from_txt(t_cub *cub, t_wdata *stripe, int pos[2], int img)
 	off[Y] = off[Y] < 0 ? 0 : off[Y];
 	return (cub->txt[img].data[(off[Y] * cub->txt[img].width) + off[X]]);
 }
-
