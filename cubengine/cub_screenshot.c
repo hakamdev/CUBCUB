@@ -10,7 +10,7 @@ int		take_screenshot(t_cub *cub)
 	int fd;
 
 	fd = open("ss.bmp", O_RDWR);
-
+	g_end_splsh = TRUE;
 	event_game_loop(cub);
 	bmp.info.bpp = 24;
 	uint32_t wipixel = ((WIN_WIDTH * bmp.info.bpp + 31) / 32) *4;

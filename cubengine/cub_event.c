@@ -60,7 +60,7 @@ int		event_game_loop(t_cub *cub)
 	if (g_end_splsh)
 		g_indx_splsh = HUD;
 	update_rendering_hud(cub, &cub->txt[g_indx_splsh]);
-	//update_level(cub);
+	update_level(cub);
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->cnvs.img, 0, 0);
 	return (SUCCESS);
 }

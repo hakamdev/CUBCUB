@@ -87,8 +87,8 @@ int		init_game(t_cub *cub, int ac, t_str *av)
 		return (ft_output(cub->errno, ERROR));
 	if (IS_ERROR(init_sprites(cub)))
 		return (ft_output(cub->errno, ERROR));
-	//if (IS_ERROR(init_levels(cub)))
-	//	return (ft_output(cub->errno, ERROR));
+	if (IS_ERROR(init_levels(cub)))
+		return (ft_output(cub->errno, ERROR));
 	return (SUCCESS);
 }
 

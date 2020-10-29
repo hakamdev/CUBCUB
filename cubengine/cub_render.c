@@ -14,7 +14,7 @@ void	render_sprite(t_cub *cub, int id, int off[2], int spr)
 	{
 		if (off[X] + x < 0 || off[X] + x >= WIN_WIDTH)
 			continue ;
-		if (cub->ray[off[X] + x].dist + (TILE_SIZE) <= cub->spr[id].dist)
+		if (cub->ray[off[X] + x].dist <= cub->spr[id].dist)
 			continue ;
 		y = -1;
 		rx = (x * ratio);
@@ -29,36 +29,6 @@ void	render_sprite(t_cub *cub, int id, int off[2], int spr)
 		}
 	}
 }
-
-// void	render_sprite(t_cub *cub, int id, int offx, int offy)
-// {
-// 	int			x;
-// 	int			y;
-// 	int			rx;
-// 	int			ry;
-// 	int			clrindex;
-// 	const float	ratio = cub->txt[SPR].width / cub->spr[id].scale;
-//
-// 	x = -1;
-// 	while (++x < (int)cub->spr[id].scale)
-// 	{
-// 		if (offx + x < 0 || offx + x >= WIN_WIDTH)
-// 			continue ;
-// 		if (cub->ray[offx + x].dist <= cub->spr[id].dist)
-// 			continue ;
-// 		y = -1;
-// 		rx = (x * ratio);
-// 		while (++y < (int)cub->spr[id].scale)
-// 		{
-// 			if (offy + y < 0 || offy + y >= WIN_HEIGHT)
-// 				continue ;
-// 			ry = (y * ratio);
-// 			clrindex = (ry * cub->txt[SPR].width) + rx;
-// 			if (cub->txt[SPR].data[clrindex] != cub->txt[SPR].data[0])
-// 				draw(&cub->cnvs, offx + x, offy + y, cub->txt[SPR].data[clrindex]);
-// 		}
-// 	}
-// }
 
 void    render_wall_stripe(t_cub *cub, t_wdata *stripe, int x)
 {

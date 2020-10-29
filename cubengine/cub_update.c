@@ -44,12 +44,13 @@ void update_rendering_walls(t_cub *cub)
 	int j;
 	t_wdata strp;
 	const float pplane_dist = (WIN_WIDTH / 2.0F) / tanf((FOV) / 2);
+	float	corr_dist;
 
 	i = -1;
 	while (++i < WIN_WIDTH)
 	{
-		cub->ray[i].dist *= cosf(cub->ray[i].ang - cub->cam.ang);
-		strp.height = TILE_SIZE / cub->ray[i].dist * pplane_dist;
+		corr_dist = cub->ray[i].dist * cosf(cub->ray[i].ang - cub->cam.ang);
+		strp.height = TILE_SIZE / corr_dist * pplane_dist;
 		strp.top = ((float)WIN_HEIGHT / 2) - (strp.height / 2);	 /* TODO updown */
 		strp.bttm = ((float)WIN_HEIGHT / 2) + (strp.height / 2); /* TODO updown */
 		strp.top = strp.top < 0 ? 0 : strp.top;
