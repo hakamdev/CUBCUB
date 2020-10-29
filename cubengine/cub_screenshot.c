@@ -32,14 +32,15 @@ int		take_screenshot(t_cub *cub)
 
 	for (size_t i = (WIN_WIDTH * WIN_HEIGHT) - 1, j = 55; i >= 0 && j < imgsize; i--)
 	{
-		unsigned char r, g, b;
-		int clr = cub->cnvs.data[i];
-		r = clr / POW(256);
-		g = (clr - (r * POW(256))) / 256;
-		b = clr - (r * POW(256) + g * 256);
-		memset(headerdata + j++, g, 1); // g
-		memset(headerdata + j++, r, 1); // r
-		memset(headerdata + j++, b, 1); // b
+		const t_color clr = color_hex_to_rgb(cub->cnvs.data[i]);
+		// unsigned char r, g, b;
+		// int clr = cub->cnvs.data[i];
+		// r = clr / POW(256);
+		// g = (clr - (r * POW(256))) / 256;
+		// b = clr - (r * POW(256) + g * 256);
+		memset(headerdata + j++, clr.g, 1); // g
+		memset(headerdata + j++, clr.r, 1); // r
+		memset(headerdata + j++, clr.b, 1); // b
 	}
 	
 	write(fd, headerdata, imgsize + 54);
@@ -47,3 +48,12 @@ int		take_screenshot(t_cub *cub)
 	return (SUCCESS);
 }
 
+t_color		color_hex_to_rgb(unsigned int color)
+{
+	t_color		out_clr;
+
+	out_clr.r = color / POW(256);
+	out_clr.g = (color - (r * POW(256))) / 256;
+	out_clr.b = color - (r * POW(256) + g * 256);
+	return (out_clr);
+}

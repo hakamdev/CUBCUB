@@ -273,6 +273,7 @@ int		take_screenshot(t_cub *cub);
 //
 int		get_color_from_txt(t_cub *cub, t_wdata *stripe, int pos[2], int img);
 int		color_rgb_to_hex(t_color clr);
+t_color	color_hex_to_rgb(unsigned int color);
 float	get_distance(t_cub *cub, float x, float y);
 float	normalize_rad(float angle);
 char	value_at(t_cub *cub, int x, int y);
