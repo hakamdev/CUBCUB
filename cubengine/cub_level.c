@@ -16,12 +16,12 @@ int		find_checkpoint(t_cub *cub, t_checkpnt *cp, char current_cp)
 		{
 			if (cub->map[j].row[i] == current_cp)
 			{
-				if (found)
+				if (found == TRUE)
 					return (exit_error(cub, "Error: Duplicate checkpoint!"));
-				found = TRUE;
 				cp->name = current_cp;
 				cp->x = (i + 0.5F) * TILE_SIZE;
 				cp->y = (j + 0.5F) * TILE_SIZE;
+				found = TRUE;
 			}
 		}	
 	}
@@ -36,7 +36,7 @@ int		init_checkpoints(t_cub *cub)
 
 	i = 0;
 	current_cp = 'a';
-	while (current_cp <= 't')
+	while (current_cp <= 't' && cub->cp_nb <= 20)
 	{
 		retcode = find_checkpoint(cub, &cub->checkps[i++], current_cp);
 		if (IS_ERROR(retcode))
@@ -70,7 +70,6 @@ int		jump_to_level(t_cub *cub, int nextlvl)
 
 int		update_level(t_cub *cub)
 {
-	// cub->currlvl - cub->currcp - cub->lastcpn
 	if (cub->currlvl >= cub->level_nb ||
 		cub->level[cub->currlvl].end.name >= cub->lastcpn)
 		return (SUCCESS);

@@ -7,10 +7,10 @@ void update_camera(t_cub *cub)
 
 	next_x = cub->cam.x + cub->cam.mov_spd *
 				cub->cam.mov_dir *
-				cosf(cub->cam.ang + cub->cam.side_ang) * 20;
+				cosf(cub->cam.ang + cub->cam.side_ang);
 	next_y = cub->cam.y + cub->cam.mov_spd *
 				cub->cam.mov_dir *
-				sinf(cub->cam.ang + cub->cam.side_ang) * 20;
+				sinf(cub->cam.ang + cub->cam.side_ang);
 	cub->cam.ang += (cub->cam.rot_spd * cub->cam.rot_dir);
 	if (!is_wall(cub, next_x, cub->cam.y) &&
 		!is_sprite(cub, next_x, cub->cam.y))

@@ -69,13 +69,17 @@
 
 typedef char	*t_str;
 typedef	int		t_bool;
+typedef unsigned int uint32_t;
+typedef unsigned short uint16_t;
+typedef unsigned char uint8_t;
+
 typedef struct	s_header
 {
 	char 	type[2];
 	uint32_t filesize;
 	uint32_t reserved;
 	uint32_t offset;
-} __attribute__((packed)) t_header;
+} t_header;
 typedef struct	s_bmpinfo
 {
 	uint32_t headersize;
@@ -89,7 +93,7 @@ typedef struct	s_bmpinfo
 	uint32_t ypixelpmeter;
 	uint32_t numclrpalette;
 	uint32_t mostimpclr;
-} __attribute__((packed)) t_bmpinfo;
+} t_bmpinfo;
 typedef struct	s_bmp
 {
 	t_header	header;
