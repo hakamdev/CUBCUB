@@ -82,7 +82,7 @@ void update_rendering_sprites(t_cub *cub)
 		cub->spr[i].ang = atan2f(cub->spr[i].y - cub->cam.y,
 								 cub->spr[i].x - cub->cam.x);
 		cub->spr[i].ang = normalize_spr(cub, cub->spr[i].ang);
-		cub->spr[i].scale = (TILE_SIZE / cub->spr[i].dist * pplane_dist);
+		cub->spr[i].scale = WIN_WIDTH * (float)TILE_SIZE / cub->spr[i].dist;//(TILE_SIZE / cub->spr[i].dist * pplane_dist);
 		cub->spr[i].offy = (WIN_HEIGHT / 2.0F) - (cub->spr[i].scale / 2);
 		cub->spr[i].offx = ((DEG(cub->spr[i].ang) - DEG(cub->cam.ang)) * WIN_WIDTH)
 	/ (cub->txt[SPR].width) + ((WIN_WIDTH / 2.0F) - (cub->spr[i].scale / 2));

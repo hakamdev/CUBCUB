@@ -14,7 +14,7 @@ void	render_sprite(t_cub *cub, int id, int off[2], int spr)
 	{
 		if (off[X] + x < 0 || off[X] + x >= WIN_WIDTH)
 			continue ;
-		if (cub->ray[off[X] + x].dist <= cub->spr[id].dist)
+		if (cub->ray[off[X] + x].dist + (TILE_SIZE) <= cub->spr[id].dist)
 			continue ;
 		y = -1;
 		rx = (x * ratio);
@@ -38,7 +38,7 @@ void	render_sprite(t_cub *cub, int id, int off[2], int spr)
 // 	int			ry;
 // 	int			clrindex;
 // 	const float	ratio = cub->txt[SPR].width / cub->spr[id].scale;
-
+//
 // 	x = -1;
 // 	while (++x < (int)cub->spr[id].scale)
 // 	{
