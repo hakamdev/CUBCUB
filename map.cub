@@ -1,4 +1,4 @@
-R 1600 900
+R 1200 600
 
 NO ./cubassets/wood.xpm
 SO ./cubassets/redbrick.xpm
@@ -6,7 +6,7 @@ WE ./cubassets/stone.xpm
 EA ./cubassets/mossy.xpm
 HU ./cubassets/hud3.xpm
 S ./cubassets/sp3.xpm
-F 86,12,22
+F 86,12,12
 C 10,151,176
 
 
